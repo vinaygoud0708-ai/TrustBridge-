@@ -26,15 +26,22 @@
     --border: #e2e8f0;
   }
 
+  html { scroll-behavior: smooth; }
+
   body {
     font-family: 'Inter', sans-serif;
     background: var(--lighter);
     color: var(--dark);
     font-size: 13px;
     line-height: 1.7;
+    -webkit-text-size-adjust: 100%;
   }
 
-  /* ── COVER PAGE ── */
+  img { max-width: 100%; }
+
+  /* ══════════════════════════════════
+     COVER PAGE
+  ══════════════════════════════════ */
   .cover {
     width: 100%;
     min-height: 100vh;
@@ -44,7 +51,7 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 60px 40px;
+    padding: 60px 24px 80px;
     position: relative;
     overflow: hidden;
     page-break-after: always;
@@ -53,19 +60,21 @@
   .cover::before {
     content: '';
     position: absolute;
-    width: 600px; height: 600px;
+    width: 500px; height: 500px;
     border-radius: 50%;
     background: rgba(255,255,255,0.03);
-    top: -200px; right: -200px;
+    top: -150px; right: -150px;
+    pointer-events: none;
   }
 
   .cover::after {
     content: '';
     position: absolute;
-    width: 400px; height: 400px;
+    width: 350px; height: 350px;
     border-radius: 50%;
     background: rgba(255,255,255,0.03);
-    bottom: -100px; left: -100px;
+    bottom: -80px; left: -80px;
+    pointer-events: none;
   }
 
   .cover-logo {
@@ -75,9 +84,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 30px;
+    margin: 0 auto 28px;
     border: 2px solid rgba(255,255,255,0.2);
     font-size: 40px;
+    position: relative; z-index: 1;
   }
 
   .cover-badge {
@@ -92,24 +102,28 @@
     letter-spacing: 2px;
     text-transform: uppercase;
     margin-bottom: 24px;
+    position: relative; z-index: 1;
   }
 
   .cover h1 {
-    font-size: 52px;
+    font-size: clamp(36px, 8vw, 52px);
     font-weight: 900;
     color: #ffffff;
     line-height: 1.1;
     margin-bottom: 8px;
     letter-spacing: -1px;
+    position: relative; z-index: 1;
   }
 
   .cover h1 span { color: #7dd3fc; }
 
   .cover-tagline {
-    font-size: 18px;
+    font-size: clamp(13px, 3vw, 18px);
     color: #bae6fd;
     font-weight: 400;
-    margin-bottom: 50px;
+    margin-bottom: 40px;
+    position: relative; z-index: 1;
+    padding: 0 10px;
   }
 
   .cover-divider {
@@ -117,15 +131,17 @@
     height: 3px;
     background: linear-gradient(90deg, #7dd3fc, #34d399);
     border-radius: 2px;
-    margin: 0 auto 50px;
+    margin: 0 auto 40px;
+    position: relative; z-index: 1;
   }
 
   .cover-meta {
     display: flex;
-    gap: 50px;
+    gap: 30px;
     justify-content: center;
     flex-wrap: wrap;
-    margin-bottom: 60px;
+    margin-bottom: 50px;
+    position: relative; z-index: 1;
   }
 
   .cover-meta-item { text-align: center; }
@@ -140,29 +156,32 @@
   }
 
   .cover-meta-item .value {
-    font-size: 14px;
+    font-size: 13px;
     color: #ffffff;
     font-weight: 600;
   }
 
   .cover-stats {
     display: flex;
-    gap: 30px;
+    gap: 14px;
     justify-content: center;
     flex-wrap: wrap;
+    position: relative; z-index: 1;
   }
 
   .cover-stat {
     background: rgba(255,255,255,0.08);
     border: 1px solid rgba(255,255,255,0.15);
     border-radius: 16px;
-    padding: 20px 28px;
+    padding: 18px 22px;
     text-align: center;
-    min-width: 130px;
+    min-width: 110px;
+    flex: 1 1 100px;
+    max-width: 160px;
   }
 
   .cover-stat .num {
-    font-size: 26px;
+    font-size: 24px;
     font-weight: 800;
     color: #ffffff;
     line-height: 1;
@@ -178,23 +197,103 @@
 
   .cover-footer {
     position: absolute;
-    bottom: 30px;
+    bottom: 24px;
     left: 0; right: 0;
     text-align: center;
-    font-size: 11px;
+    font-size: 10px;
     color: rgba(255,255,255,0.3);
+    z-index: 1;
+    padding: 0 20px;
   }
 
-  /* ── TOC PAGE ── */
+  /* ══════════════════════════════════
+     IDEA CREDIT BANNER
+  ══════════════════════════════════ */
+  .idea-credit {
+    background: linear-gradient(135deg, #0f172a, #1e3a5f);
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding: 28px 24px;
+    text-align: center;
+    page-break-after: always;
+  }
+
+  .idea-credit-inner {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .idea-credit-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(14,165,233,0.15);
+    border: 1px solid rgba(14,165,233,0.4);
+    color: #7dd3fc;
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .idea-credit h3 {
+    font-size: clamp(18px, 5vw, 26px);
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 6px;
+  }
+
+  .idea-credit-sub {
+    font-size: 12px;
+    color: #94a3b8;
+    margin-bottom: 20px;
+  }
+
+  .idea-credit-cards {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .icc {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 14px 20px;
+    text-align: center;
+    flex: 1 1 140px;
+    max-width: 200px;
+  }
+
+  .icc .icc-label {
+    font-size: 9px;
+    color: #7dd3fc;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .icc .icc-value {
+    font-size: 14px;
+    color: #ffffff;
+    font-weight: 700;
+  }
+
+  /* ══════════════════════════════════
+     TOC PAGE
+  ══════════════════════════════════ */
   .toc-page {
     background: var(--white);
-    padding: 60px 70px;
+    padding: clamp(30px, 6vw, 60px) clamp(20px, 8vw, 70px);
     page-break-after: always;
-    min-height: 100vh;
   }
 
   .toc-title {
-    font-size: 28px;
+    font-size: clamp(20px, 5vw, 28px);
     font-weight: 800;
     color: var(--dark);
     margin-bottom: 8px;
@@ -203,14 +302,14 @@
   .toc-subtitle {
     font-size: 13px;
     color: var(--gray);
-    margin-bottom: 40px;
+    margin-bottom: 30px;
     padding-bottom: 20px;
     border-bottom: 2px solid var(--border);
   }
 
   .toc-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     gap: 10px;
   }
 
@@ -218,10 +317,9 @@
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 12px 16px;
+    padding: 12px 14px;
     border-radius: 10px;
     border: 1px solid var(--border);
-    transition: all 0.2s;
   }
 
   .toc-num {
@@ -239,21 +337,26 @@
 
   .toc-text { font-size: 12px; font-weight: 600; color: var(--dark2); }
 
-  /* ── MAIN CONTENT ── */
+  /* ══════════════════════════════════
+     MAIN PAGE WRAPPER
+  ══════════════════════════════════ */
   .page {
     background: var(--white);
-    padding: 60px 70px;
+    padding: clamp(28px, 6vw, 60px) clamp(16px, 8vw, 70px);
     page-break-before: always;
   }
 
-  /* ── SECTION HEADER ── */
+  /* ══════════════════════════════════
+     SECTION HEADER
+  ══════════════════════════════════ */
   .section-header {
     display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-bottom: 30px;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 28px;
     padding-bottom: 16px;
     border-bottom: 2px solid var(--border);
+    flex-wrap: wrap;
   }
 
   .section-num {
@@ -271,10 +374,10 @@
   }
 
   .section-title {
-    font-size: 22px;
+    font-size: clamp(17px, 4vw, 22px);
     font-weight: 800;
     color: var(--dark);
-    letter-spacing: -0.5px;
+    letter-spacing: -0.3px;
   }
 
   .section-subtitle {
@@ -284,68 +387,72 @@
     margin-top: 2px;
   }
 
-  /* ── TYPOGRAPHY ── */
+  /* ══════════════════════════════════
+     TYPOGRAPHY
+  ══════════════════════════════════ */
   h3 {
-    font-size: 15px;
+    font-size: clamp(13px, 3vw, 15px);
     font-weight: 700;
     color: var(--dark2);
-    margin: 28px 0 12px;
+    margin: 24px 0 10px;
   }
 
   h4 {
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 700;
     color: var(--primary-dark);
-    margin: 20px 0 10px;
+    margin: 18px 0 8px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
   }
 
-  p { margin-bottom: 12px; color: var(--dark3); line-height: 1.8; }
+  p { margin-bottom: 12px; color: var(--dark3); line-height: 1.8; font-size: 13px; }
 
   blockquote {
     background: linear-gradient(135deg, #eff6ff, #f0fdf4);
     border-left: 4px solid var(--primary);
-    padding: 16px 20px;
+    padding: 14px 18px;
     border-radius: 0 10px 10px 0;
-    margin: 20px 0;
+    margin: 18px 0;
     font-style: italic;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 500;
     color: var(--dark2);
   }
 
-  /* ── CARDS & BOXES ── */
+  /* ══════════════════════════════════
+     CARDS
+  ══════════════════════════════════ */
   .card {
     background: var(--lighter);
     border: 1px solid var(--border);
     border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 16px;
+    padding: 18px;
+    margin-bottom: 14px;
   }
 
   .card-blue {
     background: linear-gradient(135deg, #eff6ff, #e0f2fe);
     border: 1px solid #bae6fd;
     border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 16px;
+    padding: 18px;
+    margin-bottom: 14px;
   }
 
   .card-green {
     background: linear-gradient(135deg, #f0fdf4, #ecfdf5);
     border: 1px solid #bbf7d0;
     border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 16px;
+    padding: 18px;
+    margin-bottom: 14px;
   }
 
   .info-box {
     background: linear-gradient(135deg, #fef9c3, #fefce8);
     border: 1px solid #fde047;
     border-radius: 10px;
-    padding: 16px 20px;
-    margin: 16px 0;
+    padding: 14px 18px;
+    margin: 14px 0;
     font-size: 12px;
     color: #854d0e;
   }
@@ -353,20 +460,24 @@
   .highlight-box {
     background: linear-gradient(135deg, var(--primary), var(--secondary));
     border-radius: 16px;
-    padding: 28px 32px;
-    margin: 24px 0;
+    padding: clamp(20px, 4vw, 28px) clamp(18px, 5vw, 32px);
+    margin: 22px 0;
     color: white;
     text-align: center;
   }
 
-  .highlight-box .big { font-size: 22px; font-weight: 800; margin-bottom: 6px; }
-  .highlight-box .small { font-size: 13px; opacity: 0.85; }
+  .highlight-box .big { font-size: clamp(14px, 3.5vw, 22px); font-weight: 800; margin-bottom: 6px; }
+  .highlight-box .small { font-size: 12px; opacity: 0.85; }
 
-  /* ── TABLES ── */
+  /* ══════════════════════════════════
+     TABLES — RESPONSIVE
+  ══════════════════════════════════ */
+  .table-wrap { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 14px 0; border-radius: 10px; }
+
   table {
     width: 100%;
+    min-width: 340px;
     border-collapse: collapse;
-    margin: 16px 0;
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 1px 3px rgba(0,0,0,0.06);
@@ -375,40 +486,33 @@
   th {
     background: linear-gradient(135deg, var(--dark), var(--dark2));
     color: white;
-    padding: 12px 16px;
+    padding: 11px 14px;
     text-align: left;
     font-size: 11px;
     font-weight: 700;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.4px;
     text-transform: uppercase;
+    white-space: nowrap;
   }
 
   td {
-    padding: 11px 16px;
+    padding: 10px 14px;
     border-bottom: 1px solid var(--border);
     font-size: 12px;
     color: var(--dark3);
+    vertical-align: top;
   }
 
   tr:last-child td { border-bottom: none; }
   tr:nth-child(even) td { background: var(--lighter); }
-  tr:hover td { background: #eff6ff; }
 
-  /* ── LISTS ── */
-  ul, ol {
-    padding-left: 20px;
-    margin-bottom: 12px;
-  }
+  /* ══════════════════════════════════
+     LISTS
+  ══════════════════════════════════ */
+  ul, ol { padding-left: 18px; margin-bottom: 12px; }
+  li { margin-bottom: 6px; color: var(--dark3); font-size: 12.5px; }
 
-  li {
-    margin-bottom: 6px;
-    color: var(--dark3);
-    font-size: 12.5px;
-  }
-
-  /* ── CHECK LIST ── */
   .check-list { list-style: none; padding: 0; }
-
   .check-list li {
     display: flex;
     align-items: flex-start;
@@ -417,12 +521,11 @@
     border-bottom: 1px solid var(--border);
     font-size: 12.5px;
   }
-
   .check-list li:last-child { border-bottom: none; }
-
   .check-list li::before {
     content: '✓';
     width: 20px; height: 20px;
+    min-width: 20px;
     background: var(--accent);
     color: white;
     border-radius: 50%;
@@ -431,26 +534,46 @@
     justify-content: center;
     font-size: 11px;
     font-weight: 700;
-    flex-shrink: 0;
     margin-top: 1px;
   }
 
-  /* ── GRID LAYOUTS ── */
-  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
-  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin: 16px 0; }
-  .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; margin: 16px 0; }
+  /* ══════════════════════════════════
+     RESPONSIVE GRIDS
+  ══════════════════════════════════ */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    margin: 14px 0;
+  }
 
-  /* ── STAT CARDS ── */
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 14px;
+    margin: 14px 0;
+  }
+
+  .grid-4 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 12px;
+    margin: 14px 0;
+  }
+
+  /* ══════════════════════════════════
+     STAT CARDS
+  ══════════════════════════════════ */
   .stat-card {
     background: var(--lighter);
     border: 1px solid var(--border);
     border-radius: 12px;
-    padding: 20px;
+    padding: 18px 14px;
     text-align: center;
   }
 
   .stat-card .stat-num {
-    font-size: 28px;
+    font-size: clamp(20px, 5vw, 28px);
     font-weight: 800;
     background: linear-gradient(135deg, var(--primary), var(--secondary));
     -webkit-background-clip: text;
@@ -461,31 +584,36 @@
   }
 
   .stat-card .stat-label {
-    font-size: 11px;
+    font-size: 10px;
     color: var(--gray);
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
   }
 
-  /* ── BADGE ── */
+  /* ══════════════════════════════════
+     BADGES
+  ══════════════════════════════════ */
   .badge {
     display: inline-flex;
     align-items: center;
-    gap: 5px;
+    gap: 4px;
     padding: 4px 10px;
     border-radius: 50px;
     font-size: 11px;
     font-weight: 600;
+    white-space: nowrap;
   }
 
-  .badge-blue { background: #dbeafe; color: #1e40af; }
-  .badge-green { background: #dcfce7; color: #166534; }
+  .badge-blue   { background: #dbeafe; color: #1e40af; }
+  .badge-green  { background: #dcfce7; color: #166534; }
   .badge-yellow { background: #fef9c3; color: #854d0e; }
-  .badge-red { background: #fee2e2; color: #991b1b; }
-  .badge-gray { background: #f1f5f9; color: #475569; }
+  .badge-red    { background: #fee2e2; color: #991b1b; }
+  .badge-gray   { background: #f1f5f9; color: #475569; }
 
-  /* ── PHASE CARD ── */
+  /* ══════════════════════════════════
+     PHASE CARDS
+  ══════════════════════════════════ */
   .phase-card {
     border-radius: 14px;
     overflow: hidden;
@@ -494,10 +622,10 @@
   }
 
   .phase-header {
-    padding: 16px 24px;
+    padding: 14px 20px;
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 12px;
   }
 
   .phase-header.ph1 { background: linear-gradient(135deg, #0369a1, #0ea5e9); }
@@ -505,7 +633,8 @@
   .phase-header.ph3 { background: linear-gradient(135deg, #7c3aed, #a855f7); }
 
   .phase-num {
-    width: 38px; height: 38px;
+    width: 36px; height: 36px;
+    min-width: 36px;
     background: rgba(255,255,255,0.2);
     border-radius: 10px;
     display: flex;
@@ -516,63 +645,66 @@
     color: white;
   }
 
-  .phase-name { font-size: 16px; font-weight: 700; color: white; }
-  .phase-time { font-size: 12px; color: rgba(255,255,255,0.75); margin-top: 2px; }
+  .phase-name { font-size: clamp(13px, 3vw, 16px); font-weight: 700; color: white; }
+  .phase-time { font-size: 11px; color: rgba(255,255,255,0.75); margin-top: 2px; }
 
   .phase-body {
     background: var(--lighter);
     border: 1px solid var(--border);
     border-top: none;
-    padding: 20px 24px;
+    padding: 18px 20px;
   }
 
-  /* ── FLOW DIAGRAM ── */
+  /* ══════════════════════════════════
+     FLOW DIAGRAM
+  ══════════════════════════════════ */
   .flow {
     display: flex;
-    align-items: center;
+    align-items: stretch;
     gap: 0;
-    margin: 20px 0;
+    margin: 18px 0;
     flex-wrap: wrap;
+    justify-content: center;
   }
 
   .flow-step {
     background: linear-gradient(135deg, var(--primary), var(--secondary));
     color: white;
-    padding: 14px 18px;
+    padding: 12px 14px;
     border-radius: 10px;
     text-align: center;
-    flex: 1;
-    min-width: 100px;
+    flex: 1 1 90px;
+    max-width: 140px;
     font-size: 11px;
     font-weight: 700;
   }
 
   .flow-arrow {
-    font-size: 18px;
+    font-size: 16px;
     color: var(--gray);
-    padding: 0 6px;
+    padding: 0 4px;
+    display: flex;
+    align-items: center;
     flex-shrink: 0;
   }
 
-  /* ── RISK TABLE ── */
-  .risk-high { color: #dc2626; font-weight: 700; }
-  .risk-med { color: #d97706; font-weight: 700; }
-  .risk-low { color: #16a34a; font-weight: 700; }
-
-  /* ── MODULE HEADER ── */
+  /* ══════════════════════════════════
+     MODULE HEADERS
+  ══════════════════════════════════ */
   .module-header {
     background: linear-gradient(135deg, var(--dark), var(--dark2));
     color: white;
-    padding: 16px 20px;
+    padding: 14px 18px;
     border-radius: 12px 12px 0 0;
     display: flex;
     align-items: center;
     gap: 12px;
-    margin-top: 28px;
+    margin-top: 24px;
   }
 
   .module-icon {
-    width: 36px; height: 36px;
+    width: 34px; height: 34px;
+    min-width: 34px;
     background: rgba(255,255,255,0.12);
     border-radius: 8px;
     display: flex;
@@ -581,7 +713,7 @@
     font-size: 18px;
   }
 
-  .module-title { font-size: 14px; font-weight: 700; }
+  .module-title { font-size: 13px; font-weight: 700; }
   .module-subtitle { font-size: 11px; color: #94a3b8; margin-top: 1px; }
 
   .module-body {
@@ -589,29 +721,37 @@
     border: 1px solid var(--border);
     border-top: none;
     border-radius: 0 0 12px 12px;
-    padding: 20px;
-    margin-bottom: 8px;
+    padding: 18px;
+    margin-bottom: 6px;
   }
 
-  /* ── COMPARISON TABLE ── */
-  .compare-yes { color: #16a34a; font-weight: 700; font-size: 14px; }
-  .compare-no { color: #dc2626; font-weight: 700; font-size: 14px; }
-  .compare-partial { color: #d97706; font-weight: 700; font-size: 14px; }
-  .compare-us { background: linear-gradient(135deg, #eff6ff, #f0fdf4) !important; font-weight: 700; }
+  /* ══════════════════════════════════
+     COMPARE TABLE COLORS
+  ══════════════════════════════════ */
+  .compare-yes     { color: #16a34a; font-weight: 700; font-size: 13px; }
+  .compare-no      { color: #dc2626; font-weight: 700; font-size: 13px; }
+  .compare-partial { color: #d97706; font-weight: 700; font-size: 13px; }
+  .compare-us      { background: linear-gradient(135deg, #eff6ff, #f0fdf4) !important; font-weight: 700; }
 
-  /* ── FOOTER ── */
+  /* ══════════════════════════════════
+     PAGE FOOTER
+  ══════════════════════════════════ */
   .page-footer {
-    margin-top: 50px;
-    padding-top: 20px;
+    margin-top: 40px;
+    padding-top: 16px;
     border-top: 1px solid var(--border);
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
     font-size: 10px;
     color: var(--gray);
   }
 
-  /* ── FINAL PAGE ── */
+  /* ══════════════════════════════════
+     FINAL PAGE
+  ══════════════════════════════════ */
   .final-page {
     background: linear-gradient(135deg, #0f172a 0%, #0369a1 100%);
     min-height: 100vh;
@@ -620,26 +760,27 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 60px;
+    padding: clamp(40px, 8vw, 80px) clamp(20px, 6vw, 60px);
     page-break-before: always;
   }
 
-  .final-page h2 { font-size: 36px; font-weight: 900; color: white; margin-bottom: 16px; }
-  .final-page p { color: #bae6fd; font-size: 15px; margin-bottom: 40px; max-width: 500px; }
+  .final-page h2 { font-size: clamp(24px, 6vw, 36px); font-weight: 900; color: white; margin-bottom: 14px; }
+  .final-page > p { color: #bae6fd; font-size: clamp(13px, 3vw, 15px); margin-bottom: 36px; max-width: 500px; }
 
   .next-steps {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 16px;
-    max-width: 700px;
-    margin: 0 auto 50px;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 14px;
+    max-width: 680px;
+    width: 100%;
+    margin: 0 auto 40px;
   }
 
   .next-step {
     background: rgba(255,255,255,0.08);
     border: 1px solid rgba(255,255,255,0.15);
     border-radius: 14px;
-    padding: 24px 16px;
+    padding: 22px 14px;
     text-align: center;
   }
 
@@ -656,67 +797,85 @@
     background: rgba(255,255,255,0.06);
     border: 1px solid rgba(255,255,255,0.12);
     border-radius: 16px;
-    padding: 30px 50px;
-    margin-top: 10px;
+    padding: clamp(22px, 5vw, 30px) clamp(20px, 6vw, 50px);
+    width: 100%;
+    max-width: 640px;
   }
 
-  .contact-box .label { font-size: 10px; color: #7dd3fc; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px; }
-  .contact-row { display: flex; gap: 40px; justify-content: center; flex-wrap: wrap; }
+  .contact-box .label {
+    font-size: 10px;
+    color: #7dd3fc;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    font-weight: 700;
+  }
+
+  .contact-row {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
   .contact-item { text-align: center; }
   .contact-item .ci-label { font-size: 10px; color: #94a3b8; margin-bottom: 4px; }
-  .contact-item .ci-value { font-size: 13px; color: white; font-weight: 600; }
+  .contact-item .ci-value { font-size: 13px; color: white; font-weight: 700; }
 
-  /* ── PRINT ── */
-  @media print {
-    body { background: white; }
-    .page { page-break-before: always; padding: 40px 50px; }
-    .cover { page-break-after: always; }
-    .toc-page { page-break-after: always; }
-  }
-
+  /* ══════════════════════════════════
+     TRUST SCORE DEMO
+  ══════════════════════════════════ */
   .trust-score-demo {
     background: var(--dark);
     border-radius: 12px;
-    padding: 20px 24px;
-    margin: 16px 0;
+    padding: 18px 22px;
+    margin: 14px 0;
     color: white;
     font-family: monospace;
     font-size: 12px;
     line-height: 2;
+    overflow-x: auto;
   }
 
-  .score-stars { color: #fbbf24; font-size: 18px; }
+  .score-stars { color: #fbbf24; font-size: 16px; }
 
+  /* ══════════════════════════════════
+     ARCHITECTURE BOX
+  ══════════════════════════════════ */
   .arch-box {
     background: #0f172a;
     border-radius: 12px;
-    padding: 24px;
+    padding: 20px;
     font-family: monospace;
     font-size: 11px;
     color: #7dd3fc;
     line-height: 2;
-    margin: 16px 0;
+    margin: 14px 0;
     white-space: pre;
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
+  /* ══════════════════════════════════
+     KPI GRID
+  ══════════════════════════════════ */
   .kpi-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
     gap: 12px;
-    margin: 16px 0;
+    margin: 14px 0;
   }
 
   .kpi-card {
     background: var(--lighter);
     border: 2px solid var(--border);
     border-radius: 12px;
-    padding: 16px;
+    padding: 16px 12px;
     text-align: center;
   }
 
   .kpi-card .kpi-val {
-    font-size: 20px;
+    font-size: clamp(16px, 4vw, 20px);
     font-weight: 800;
     color: var(--primary);
     margin-bottom: 4px;
@@ -729,22 +888,25 @@
     text-transform: uppercase;
   }
 
+  /* ══════════════════════════════════
+     PILLAR GRID
+  ══════════════════════════════════ */
   .pillar-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 14px;
-    margin: 20px 0;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+    margin: 18px 0;
   }
 
   .pillar-card {
     border-radius: 14px;
-    padding: 24px 16px;
+    padding: 22px 14px;
     text-align: center;
     border: 1px solid;
   }
 
-  .pillar-card .p-icon { font-size: 28px; margin-bottom: 12px; }
-  .pillar-card .p-title { font-size: 14px; font-weight: 800; margin-bottom: 6px; }
+  .pillar-card .p-icon { font-size: 26px; margin-bottom: 10px; }
+  .pillar-card .p-title { font-size: 13px; font-weight: 800; margin-bottom: 6px; }
   .pillar-card .p-text { font-size: 11px; line-height: 1.6; }
 
   .pc1 { background: #eff6ff; border-color: #bae6fd; color: #1e3a5f; }
@@ -754,9 +916,10 @@
   .pc5 { background: #fef2f2; border-color: #fecaca; color: #7f1d1d; }
   .pc6 { background: #f0fdfa; border-color: #99f6e4; color: #134e4a; }
 
-  .revenue-bar {
-    margin: 8px 0;
-  }
+  /* ══════════════════════════════════
+     REVENUE BARS
+  ══════════════════════════════════ */
+  .revenue-bar { margin: 10px 0; }
   .revenue-bar .rb-label {
     display: flex;
     justify-content: space-between;
@@ -764,42 +927,131 @@
     font-weight: 600;
     margin-bottom: 4px;
     color: var(--dark2);
+    flex-wrap: wrap;
+    gap: 4px;
   }
-  .rb-track {
-    height: 8px;
-    background: var(--border);
-    border-radius: 4px;
-    overflow: hidden;
+  .rb-track { height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; }
+  .rb-fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, var(--primary), var(--secondary)); }
+
+  /* ══════════════════════════════════
+     RISK COLORS
+  ══════════════════════════════════ */
+  .risk-high { color: #dc2626; font-weight: 700; }
+  .risk-med  { color: #d97706; font-weight: 700; }
+  .risk-low  { color: #16a34a; font-weight: 700; }
+
+  /* ══════════════════════════════════
+     PRINT MEDIA
+  ══════════════════════════════════ */
+  @media print {
+    body { background: white; font-size: 12px; }
+    .cover { page-break-after: always; min-height: 100vh; }
+    .toc-page { page-break-after: always; }
+    .idea-credit { page-break-after: always; }
+    .page { page-break-before: always; padding: 40px 50px; }
+    .final-page { page-break-before: always; }
+    .arch-box { font-size: 10px; }
+    .table-wrap { overflow: visible; }
+    table { min-width: unset; }
   }
-  .rb-fill {
-    height: 100%;
-    border-radius: 4px;
-    background: linear-gradient(90deg, var(--primary), var(--secondary));
+
+  /* ══════════════════════════════════
+     MOBILE MEDIA QUERIES
+  ══════════════════════════════════ */
+  @media (max-width: 600px) {
+    .cover { padding: 50px 18px 70px; }
+    .cover-meta { gap: 18px; }
+    .cover-stat { padding: 14px 16px; min-width: 90px; }
+    .cover-stat .num { font-size: 20px; }
+
+    .toc-grid { grid-template-columns: 1fr; }
+
+    .page { padding: 24px 16px; }
+
+    .grid-2,
+    .grid-3,
+    .grid-4 { grid-template-columns: 1fr; }
+
+    .pillar-grid { grid-template-columns: 1fr 1fr; }
+
+    .kpi-grid { grid-template-columns: 1fr 1fr; }
+
+    .flow { gap: 6px; }
+    .flow-step { font-size: 10px; padding: 10px 10px; }
+    .flow-arrow { font-size: 14px; padding: 0 2px; }
+
+    .section-header { gap: 10px; }
+    .section-num { width: 38px; height: 38px; font-size: 14px; }
+
+    .highlight-box { padding: 20px 16px; }
+
+    .next-steps { grid-template-columns: 1fr; max-width: 100%; }
+
+    .contact-row { gap: 18px; }
+    .contact-item .ci-value { font-size: 12px; }
+
+    .arch-box { font-size: 9px; padding: 14px; }
+
+    .trust-score-demo { font-size: 11px; padding: 14px; }
+
+    .table-wrap { border-radius: 8px; }
+
+    th { font-size: 10px; padding: 9px 10px; }
+    td { font-size: 11px; padding: 9px 10px; }
+
+    .phase-header { padding: 12px 14px; }
+    .phase-body { padding: 14px; }
+
+    .module-header { padding: 12px 14px; }
+    .module-body { padding: 14px; }
+
+    .cover-footer { font-size: 9px; }
+    .page-footer { font-size: 9px; flex-direction: column; align-items: flex-start; gap: 2px; }
+
+    blockquote { font-size: 12px; padding: 12px 14px; }
+
+    .idea-credit { padding: 24px 16px; }
+    .icc { padding: 12px 14px; }
+    .icc .icc-value { font-size: 13px; }
+
+    .final-page { padding: 40px 16px; }
+    .contact-box { padding: 20px 16px; }
+  }
+
+  @media (max-width: 400px) {
+    .pillar-grid { grid-template-columns: 1fr; }
+    .kpi-grid { grid-template-columns: 1fr 1fr; }
+    .cover h1 { font-size: 32px; }
+    .flow { flex-direction: column; align-items: center; }
+    .flow-arrow { transform: rotate(90deg); }
+    .flow-step { max-width: 100%; width: 100%; }
   }
 </style>
 </head>
 <body>
 
-<!-- ═══════════════════════════════════ COVER ═══════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════════
+     COVER PAGE
+══════════════════════════════════════════════════════ -->
 <div class="cover">
   <div class="cover-logo">🌉</div>
-  <div class="cover-badge">Official Project Proposal — 2025</div>
+  <div class="cover-badge">Official Project Proposal — 2026</div>
   <h1>Trust<span>Bridge</span></h1>
   <div class="cover-tagline">Transparent Charity Platform — Complete Project Document</div>
   <div class="cover-divider"></div>
 
   <div class="cover-meta">
     <div class="cover-meta-item">
-      <div class="label">Prepared For</div>
-      <div class="value">[Client Name]</div>
+      <div class="label">Idea By</div>
+      <div class="value">Masood Mirza</div>
     </div>
     <div class="cover-meta-item">
-      <div class="label">Prepared By</div>
-      <div class="value">[Your Company]</div>
+      <div class="label">Contact</div>
+      <div class="value">+91 86868 67862</div>
     </div>
     <div class="cover-meta-item">
-      <div class="label">Document Version</div>
-      <div class="value">v1.0 — 2025</div>
+      <div class="label">Document Date</div>
+      <div class="value">9 July 2026</div>
     </div>
     <div class="cover-meta-item">
       <div class="label">Classification</div>
@@ -827,11 +1079,42 @@
   </div>
 
   <div class="cover-footer">
-    © 2025 [Your Company Name] · All Rights Reserved · Confidential Document
+    © 2026 TrustBridge · All Rights Reserved · Confidential Document · 9 July 2026
   </div>
 </div>
 
-<!-- ═══════════════════════════════════ TOC ═══════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════════
+     IDEA CREDIT SECTION
+══════════════════════════════════════════════════════ -->
+<div class="idea-credit">
+  <div class="idea-credit-inner">
+    <div class="idea-credit-badge">💡 Project Idea & Vision</div>
+    <h3>Conceived & Presented By</h3>
+    <div class="idea-credit-sub">This project concept, vision and core idea was originated by</div>
+    <div style="font-size: clamp(22px,6vw,34px); font-weight:900; color:#ffffff; margin-bottom:6px; letter-spacing:-0.5px;">
+      Masood Mirza
+    </div>
+    <div style="font-size:13px; color:#7dd3fc; margin-bottom:24px;">Project Founder & Idea Originator</div>
+    <div class="idea-credit-cards">
+      <div class="icc">
+        <div class="icc-label">📞 Mobile</div>
+        <div class="icc-value">+91 86868 67862</div>
+      </div>
+      <div class="icc">
+        <div class="icc-label">📅 Document Date</div>
+        <div class="icc-value">9 July 2026</div>
+      </div>
+      <div class="icc">
+        <div class="icc-label">🌉 Project</div>
+        <div class="icc-value">TrustBridge</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     TABLE OF CONTENTS
+══════════════════════════════════════════════════════ -->
 <div class="toc-page">
   <div class="toc-title">Table of Contents</div>
   <div class="toc-subtitle">Complete project documentation across 23 sections</div>
@@ -861,19 +1144,21 @@
     <div class="toc-item"><div class="toc-num">23</div><div class="toc-text">Next Steps</div></div>
   </div>
 
-  <div style="margin-top:40px; padding:20px; background:linear-gradient(135deg,#eff6ff,#f0fdf4); border-radius:12px; border:1px solid #bae6fd;">
+  <div style="margin-top:32px;padding:18px;background:linear-gradient(135deg,#eff6ff,#f0fdf4);border-radius:12px;border:1px solid #bae6fd;">
     <div style="font-size:13px;font-weight:700;color:#0369a1;margin-bottom:6px;">💡 About This Document</div>
-    <div style="font-size:12px;color:#475569;line-height:1.8;">This document presents the complete project proposal for TrustBridge — a transparent charity platform. It covers all technical, functional, legal, financial and strategic aspects required to successfully plan, develop and launch the platform. This is a confidential document intended solely for the named recipient.</div>
+    <div style="font-size:12px;color:#475569;line-height:1.8;">This document presents the complete project proposal for TrustBridge — a transparent charity platform. The project idea was originated by <strong>Masood Mirza</strong>. It covers all technical, functional, legal, financial and strategic aspects required to successfully plan, develop and launch the platform. This is a confidential document prepared on <strong>9 July 2026</strong>.</div>
   </div>
 
   <div class="page-footer">
-    <span>TrustBridge — Transparent Charity Platform</span>
-    <span>© 2025 [Your Company] · Confidential</span>
-    <span>Table of Contents</span>
+    <span>TrustBridge · Idea by Masood Mirza</span>
+    <span>© 2026 TrustBridge · Confidential</span>
+    <span>9 July 2026</span>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════ PAGE 1 — EXEC SUMMARY ═══════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════════
+     SECTION 01 — EXECUTIVE SUMMARY
+══════════════════════════════════════════════════════ -->
 <div class="page">
   <div class="section-header">
     <div class="section-num">01</div>
@@ -884,7 +1169,6 @@
   </div>
 
   <p><strong>TrustBridge</strong> is a next-generation transparent charity platform designed to solve the most critical problem in the non-profit world — <strong>the lack of trust and accountability</strong> between donors and charitable organizations.</p>
-
   <p>Today, millions of well-intentioned donors hesitate to contribute because they cannot verify where their money goes. Simultaneously, hundreds of legitimate small NGOs struggle to gain credibility without trusted infrastructure. <strong>TrustBridge bridges this gap.</strong></p>
 
   <blockquote>"We don't just move money — we move trust."</blockquote>
@@ -897,26 +1181,32 @@
   </div>
 
   <h3>Key Project Highlights</h3>
-  <table>
-    <tr><th>Item</th><th>Detail</th></tr>
-    <tr><td>Platform Type</td><td>Web Application + iOS & Android Mobile App</td></tr>
-    <tr><td>Primary Users</td><td>Donors, NGOs/Charities, Admin, Corporate CSR Teams</td></tr>
-    <tr><td>Core Feature</td><td>Fund Transparency & Accountability Engine</td></tr>
-    <tr><td>Business Model</td><td>Commission + Subscription + Premium Services</td></tr>
-    <tr><td>Development Timeline</td><td>9–12 Months across 3 phases</td></tr>
-    <tr><td>Target Market</td><td>Global — Initial Focus: South Asia & Middle East</td></tr>
-    <tr><td>Revenue Year 1</td><td>$15,000 – $25,000 (conservative)</td></tr>
-    <tr><td>Revenue Year 3</td><td>$240,000 – $400,000 (conservative)</td></tr>
-  </table>
+  <div class="table-wrap">
+    <table>
+      <tr><th>Item</th><th>Detail</th></tr>
+      <tr><td>Project Idea By</td><td><strong>Masood Mirza</strong> · +91 86868 67862</td></tr>
+      <tr><td>Document Date</td><td>9 July 2026</td></tr>
+      <tr><td>Platform Type</td><td>Web Application + iOS & Android Mobile App</td></tr>
+      <tr><td>Primary Users</td><td>Donors, NGOs/Charities, Admin, Corporate CSR Teams</td></tr>
+      <tr><td>Core Feature</td><td>Fund Transparency & Accountability Engine</td></tr>
+      <tr><td>Business Model</td><td>Commission + Subscription + Premium Services</td></tr>
+      <tr><td>Development Timeline</td><td>9–12 Months across 3 phases</td></tr>
+      <tr><td>Target Market</td><td>Global — Initial Focus: South Asia & Middle East</td></tr>
+      <tr><td>Revenue Year 1</td><td>$15,000 – $25,000 (conservative estimate)</td></tr>
+      <tr><td>Revenue Year 3</td><td>$240,000 – $400,000 (conservative estimate)</td></tr>
+    </table>
+  </div>
 
   <div class="page-footer">
-    <span>TrustBridge — Transparent Charity Platform</span>
-    <span>© 2025 [Your Company] · Confidential</span>
+    <span>TrustBridge · Idea by Masood Mirza</span>
+    <span>© 2026 · Confidential</span>
     <span>Section 01 — Executive Summary</span>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════ PAGE 2 — VISION + PROBLEM ═══════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════════
+     SECTION 02 — VISION  +  03 — PROBLEM
+══════════════════════════════════════════════════════ -->
 <div class="page">
   <div class="section-header">
     <div class="section-num">02</div>
@@ -937,7 +1227,7 @@
     <div class="pillar-card pc6"><div class="p-icon">🌍</div><div class="p-title">Equality</div><div class="p-text">Small NGOs get equal opportunity to build credibility</div></div>
   </div>
 
-  <div class="section-header" style="margin-top:40px;">
+  <div class="section-header" style="margin-top:36px;">
     <div class="section-num">03</div>
     <div>
       <div class="section-title">The Core Problem</div>
@@ -948,44 +1238,48 @@
   <div class="grid-2">
     <div>
       <h3>Current Issues in Charity Sector</h3>
-      <table>
-        <tr><th>#</th><th>Problem</th><th>Impact</th></tr>
-        <tr><td>1</td><td>Donors don't trust NGOs</td><td>Reduced donations</td></tr>
-        <tr><td>2</td><td>No visibility of fund usage</td><td>No repeat donors</td></tr>
-        <tr><td>3</td><td>Fake charities collect money</td><td>Financial fraud</td></tr>
-        <tr><td>4</td><td>No real-time tracking</td><td>Zero engagement</td></tr>
-        <tr><td>5</td><td>No accountability system</td><td>Fund misuse</td></tr>
-        <tr><td>6</td><td>Small NGOs can't prove legitimacy</td><td>Unfair ecosystem</td></tr>
-        <tr><td>7</td><td>No standardized reporting</td><td>Can't compare orgs</td></tr>
-        <tr><td>8</td><td>No complaint mechanism</td><td>Donors have no recourse</td></tr>
-      </table>
+      <div class="table-wrap">
+        <table>
+          <tr><th>#</th><th>Problem</th><th>Impact</th></tr>
+          <tr><td>1</td><td>Donors don't trust NGOs</td><td>Reduced donations</td></tr>
+          <tr><td>2</td><td>No visibility of fund usage</td><td>No repeat donors</td></tr>
+          <tr><td>3</td><td>Fake charities collect money</td><td>Financial fraud</td></tr>
+          <tr><td>4</td><td>No real-time tracking</td><td>Zero engagement</td></tr>
+          <tr><td>5</td><td>No accountability system</td><td>Fund misuse</td></tr>
+          <tr><td>6</td><td>Small NGOs can't prove legitimacy</td><td>Unfair ecosystem</td></tr>
+          <tr><td>7</td><td>No standardized reporting</td><td>Can't compare orgs</td></tr>
+          <tr><td>8</td><td>No complaint mechanism</td><td>Donors have no recourse</td></tr>
+        </table>
+      </div>
     </div>
     <div>
-      <h3>The Trust Gap — Statistics</h3>
+      <h3>The Trust Gap — Key Statistics</h3>
       <div class="card-blue" style="margin-bottom:12px;">
-        <div style="font-size:32px;font-weight:900;color:#0369a1;">72%</div>
+        <div style="font-size:clamp(24px,6vw,32px);font-weight:900;color:#0369a1;">72%</div>
         <div style="font-size:12px;color:#1e40af;">of donors say they would give more if they could track where their money goes</div>
         <div style="font-size:10px;color:#64748b;margin-top:4px;">Source: Charity Navigator</div>
       </div>
       <div class="card-blue" style="margin-bottom:12px;">
-        <div style="font-size:32px;font-weight:900;color:#0369a1;">30%</div>
-        <div style="font-size:12px;color:#1e40af;">of online charity campaigns reported as suspicious globally</div>
+        <div style="font-size:clamp(24px,6vw,32px);font-weight:900;color:#0369a1;">30%</div>
+        <div style="font-size:12px;color:#1e40af;">of online charity campaigns are reported as suspicious globally</div>
       </div>
       <div class="card-blue">
-        <div style="font-size:32px;font-weight:900;color:#0369a1;">18%</div>
+        <div style="font-size:clamp(24px,6vw,32px);font-weight:900;color:#0369a1;">18%</div>
         <div style="font-size:12px;color:#1e40af;">only 18% of first-time donors become repeat donors due to lack of transparency</div>
       </div>
     </div>
   </div>
 
   <div class="page-footer">
-    <span>TrustBridge — Transparent Charity Platform</span>
-    <span>© 2025 [Your Company] · Confidential</span>
+    <span>TrustBridge · Idea by Masood Mirza</span>
+    <span>© 2026 · Confidential</span>
     <span>Sections 02–03</span>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════ PAGE 3 — SOLUTION + UVP ═══════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════════
+     SECTION 04 — SOLUTION  +  05 — UVP
+══════════════════════════════════════════════════════ -->
 <div class="page">
   <div class="section-header">
     <div class="section-num">04</div>
@@ -1006,7 +1300,7 @@
     <li>Offers an escrow-based fund release system for maximum donor protection</li>
   </ul>
 
-  <div class="section-header" style="margin-top:40px;">
+  <div class="section-header" style="margin-top:36px;">
     <div class="section-num">05</div>
     <div>
       <div class="section-title">Unique Value Proposition</div>
@@ -1051,13 +1345,15 @@
   </div>
 
   <div class="page-footer">
-    <span>TrustBridge — Transparent Charity Platform</span>
-    <span>© 2025 [Your Company] · Confidential</span>
+    <span>TrustBridge · Idea by Masood Mirza</span>
+    <span>© 2026 · Confidential</span>
     <span>Sections 04–05</span>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════ PAGE 4 — TARGET MARKET ═══════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════════
+     SECTION 06 — TARGET MARKET  +  07 — COMPETITORS
+══════════════════════════════════════════════════════ -->
 <div class="page">
   <div class="section-header">
     <div class="section-num">06</div>
@@ -1070,7 +1366,6 @@
   <div class="grid-2">
     <div>
       <h3>Primary User Groups</h3>
-
       <div class="module-header">
         <div class="module-icon">💰</div>
         <div><div class="module-title">Donors</div><div class="module-subtitle">Individuals & Corporates who give</div></div>
@@ -1084,7 +1379,6 @@
           <li>High-net-worth philanthropists</li>
         </ul>
       </div>
-
       <div class="module-header">
         <div class="module-icon">🏥</div>
         <div><div class="module-title">Charities / NGOs</div><div class="module-subtitle">Organizations that raise funds</div></div>
@@ -1099,18 +1393,18 @@
         </ul>
       </div>
     </div>
-
     <div>
       <h3>Market Size</h3>
-      <table>
-        <tr><th>Segment</th><th>Size</th></tr>
-        <tr><td>Global Charity Market</td><td><strong>$500B+/year</strong></td></tr>
-        <tr><td>Online Donation Market</td><td><strong>$75B+ (12% YoY)</strong></td></tr>
-        <tr><td>NGOs Worldwide</td><td><strong>10M+ registered</strong></td></tr>
-        <tr><td>Platform Revenue Y3</td><td><strong>$2M–$5M (est.)</strong></td></tr>
-      </table>
-
-      <h3 style="margin-top:20px;">Geographic Rollout</h3>
+      <div class="table-wrap">
+        <table>
+          <tr><th>Segment</th><th>Size</th></tr>
+          <tr><td>Global Charity Market</td><td><strong>$500B+/year</strong></td></tr>
+          <tr><td>Online Donation Market</td><td><strong>$75B+ (12% YoY)</strong></td></tr>
+          <tr><td>NGOs Worldwide</td><td><strong>10M+ registered</strong></td></tr>
+          <tr><td>Platform Revenue Y3</td><td><strong>$2M–$5M (est.)</strong></td></tr>
+        </table>
+      </div>
+      <h3>Geographic Rollout</h3>
       <div class="card">
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
           <span class="badge badge-blue">Phase 1</span>
@@ -1128,7 +1422,7 @@
     </div>
   </div>
 
-  <div class="section-header" style="margin-top:40px;">
+  <div class="section-header" style="margin-top:36px;">
     <div class="section-num">07</div>
     <div>
       <div class="section-title">Competitor Analysis</div>
@@ -1136,25 +1430,29 @@
     </div>
   </div>
 
-  <table>
-    <tr><th>Platform</th><th>Verification</th><th>Fund Tracking</th><th>Usage Proof</th><th>Trust Score</th><th>Key Weakness</th></tr>
-    <tr><td>GoFundMe</td><td><span class="compare-no">✗ None</span></td><td><span class="compare-no">✗ No</span></td><td><span class="compare-no">✗ No</span><td><span class="compare-no">✗ No</span></td><td>Zero accountability</td></tr>
-    <tr><td>GiveIndia</td><td><span class="compare-partial">⚠ Basic</span></td><td><span class="compare-partial">⚠ Partial</span></td><td><span class="compare-partial">⚠ Limited</span></td><td><span class="compare-no">✗ No</span></td><td>India only</td></tr>
-    <tr><td>JustGiving</td><td><span class="compare-partial">⚠ Basic</span></td><td><span class="compare-no">✗ No</span></td><td><span class="compare-no">✗ No</span></td><td><span class="compare-no">✗ No</span></td><td>No transparency</td></tr>
-    <tr><td>Charity Navigator</td><td><span class="compare-yes">✓ Yes</span></td><td><span class="compare-no">✗ No</span></td><td><span class="compare-no">✗ No</span></td><td><span class="compare-yes">✓ Yes</span></td><td>No donations</td></tr>
-    <tr class="compare-us"><td><strong>🌉 TrustBridge</strong></td><td><span class="compare-yes">✓ Full</span></td><td><span class="compare-yes">✓ Real-time</span></td><td><span class="compare-yes">✓ Mandatory</span></td><td><span class="compare-yes">✓ Dynamic</span></td><td><strong>Our Platform ✓</strong></td></tr>
-  </table>
+  <div class="table-wrap">
+    <table>
+      <tr><th>Platform</th><th>Verification</th><th>Fund Tracking</th><th>Usage Proof</th><th>Trust Score</th><th>Key Weakness</th></tr>
+      <tr><td>GoFundMe</td><td><span class="compare-no">✗ None</span></td><td><span class="compare-no">✗ No</span></td><td><span class="compare-no">✗ No</span></td><td><span class="compare-no">✗ No</span></td><td>Zero accountability</td></tr>
+      <tr><td>GiveIndia</td><td><span class="compare-partial">⚠ Basic</span></td><td><span class="compare-partial">⚠ Partial</span></td><td><span class="compare-partial">⚠ Limited</span></td><td><span class="compare-no">✗ No</span></td><td>India only</td></tr>
+      <tr><td>JustGiving</td><td><span class="compare-partial">⚠ Basic</span></td><td><span class="compare-no">✗ No</span></td><td><span class="compare-no">✗ No</span></td><td><span class="compare-no">✗ No</span></td><td>No transparency</td></tr>
+      <tr><td>Charity Navigator</td><td><span class="compare-yes">✓ Yes</span></td><td><span class="compare-no">✗ No</span></td><td><span class="compare-no">✗ No</span></td><td><span class="compare-yes">✓ Yes</span></td><td>No donations</td></tr>
+      <tr class="compare-us"><td><strong>🌉 TrustBridge</strong></td><td><span class="compare-yes">✓ Full</span></td><td><span class="compare-yes">✓ Real-time</span></td><td><span class="compare-yes">✓ Mandatory</span></td><td><span class="compare-yes">✓ Dynamic</span></td><td><strong>Our Platform ✓</strong></td></tr>
+    </table>
+  </div>
 
   <div class="info-box">💡 <strong>Conclusion:</strong> No existing platform combines all four pillars — verification, real-time tracking, mandatory proof, and dynamic trust scoring — in one ecosystem. This is TrustBridge's <strong>competitive moat</strong>.</div>
 
   <div class="page-footer">
-    <span>TrustBridge — Transparent Charity Platform</span>
-    <span>© 2025 [Your Company] · Confidential</span>
+    <span>TrustBridge · Idea by Masood Mirza</span>
+    <span>© 2026 · Confidential</span>
     <span>Sections 06–07</span>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════ PAGE 5 — SYSTEM FLOW ═══════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════════
+     SECTION 08 — SYSTEM FLOW
+══════════════════════════════════════════════════════ -->
 <div class="page">
   <div class="section-header">
     <div class="section-num">08</div>
@@ -1192,7 +1490,6 @@
           <li><strong>✅ Once approved → Verified Badge assigned</strong></li>
         </ul>
       </div>
-
       <h3>Step 2 — Campaign Creation</h3>
       <div class="card">
         <ul>
@@ -1204,7 +1501,6 @@
           <li><strong>✅ Admin approves before campaign goes live</strong></li>
         </ul>
       </div>
-
       <h3>Step 3 — Donor Contribution</h3>
       <div class="card">
         <ul>
@@ -1217,19 +1513,17 @@
         </ul>
       </div>
     </div>
-
     <div>
       <h3>Step 4 — Escrow & Fund Holding</h3>
       <div class="card">
         <ul>
-          <li>Funds are held in TrustBridge platform escrow wallet</li>
+          <li>Funds held in TrustBridge platform escrow wallet</li>
           <li>Charity cannot access funds immediately</li>
           <li>Charity submits phased withdrawal request</li>
           <li>Admin reviews request and supporting documents</li>
           <li><strong>✅ Funds released in phases after approval</strong></li>
         </ul>
       </div>
-
       <h3>Step 5 — Fund Usage Reporting</h3>
       <div class="card">
         <ul>
@@ -1238,30 +1532,33 @@
           <li>Photos and videos of project progress</li>
           <li>Detailed usage report with item breakdown</li>
           <li>Beneficiary data and impact metrics</li>
-          <li><strong>✅ All proof is publicly visible to anyone</strong></li>
+          <li><strong>✅ All proof publicly visible to anyone</strong></li>
           <li><strong>✅ Donors receive automatic notifications</strong></li>
         </ul>
       </div>
-
       <h3>Example Fund Breakdown (Public View)</h3>
-      <table>
-        <tr><th>Expense</th><th>Budgeted</th><th>Spent</th><th>Proof</th></tr>
-        <tr><td>School Books</td><td>$2,000</td><td>$1,950</td><td><span class="badge badge-green">✓ Invoice</span></td></tr>
-        <tr><td>Teacher Salary</td><td>$1,500</td><td>$1,500</td><td><span class="badge badge-green">✓ Bank Proof</span></td></tr>
-        <tr><td>Infrastructure</td><td>$500</td><td>$480</td><td><span class="badge badge-green">✓ Photos</span></td></tr>
-        <tr><td><strong>Total</strong></td><td><strong>$4,000</strong></td><td><strong>$3,930</strong></td><td><span class="badge badge-green">✓ Full Audit</span></td></tr>
-      </table>
+      <div class="table-wrap">
+        <table>
+          <tr><th>Expense</th><th>Budgeted</th><th>Spent</th><th>Proof</th></tr>
+          <tr><td>School Books</td><td>$2,000</td><td>$1,950</td><td><span class="badge badge-green">✓ Invoice</span></td></tr>
+          <tr><td>Teacher Salary</td><td>$1,500</td><td>$1,500</td><td><span class="badge badge-green">✓ Bank</span></td></tr>
+          <tr><td>Infrastructure</td><td>$500</td><td>$480</td><td><span class="badge badge-green">✓ Photos</span></td></tr>
+          <tr><td><strong>Total</strong></td><td><strong>$4,000</strong></td><td><strong>$3,930</strong></td><td><span class="badge badge-green">✓ Full</span></td></tr>
+        </table>
+      </div>
     </div>
   </div>
 
   <div class="page-footer">
-    <span>TrustBridge — Transparent Charity Platform</span>
-    <span>© 2025 [Your Company] · Confidential</span>
+    <span>TrustBridge · Idea by Masood Mirza</span>
+    <span>© 2026 · Confidential</span>
     <span>Section 08 — System Flow</span>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════ PAGE 6 — MODULES ═══════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════════
+     SECTION 10 — MODULES (Part 1)
+══════════════════════════════════════════════════════ -->
 <div class="page">
   <div class="section-header">
     <div class="section-num">10</div>
@@ -1278,15 +1575,17 @@
         <div><div class="module-title">A. User Management</div><div class="module-subtitle">All roles and access control</div></div>
       </div>
       <div class="module-body">
-        <table>
-          <tr><th>Role</th><th>Key Capabilities</th></tr>
-          <tr><td>Super Admin</td><td>Full platform control</td></tr>
-          <tr><td>Admin</td><td>Verify, approve, monitor</td></tr>
-          <tr><td>Charity</td><td>Campaigns, withdrawals, reports</td></tr>
-          <tr><td>Donor</td><td>Donate, track, rate, download</td></tr>
-          <tr><td>Guest</td><td>Browse public campaigns</td></tr>
-          <tr><td>Corporate</td><td>CSR dashboard, bulk donations</td></tr>
-        </table>
+        <div class="table-wrap">
+          <table>
+            <tr><th>Role</th><th>Key Capabilities</th></tr>
+            <tr><td>Super Admin</td><td>Full platform control</td></tr>
+            <tr><td>Admin</td><td>Verify, approve, monitor</td></tr>
+            <tr><td>Charity</td><td>Campaigns, withdrawals</td></tr>
+            <tr><td>Donor</td><td>Donate, track, rate</td></tr>
+            <tr><td>Guest</td><td>Browse public campaigns</td></tr>
+            <tr><td>Corporate</td><td>CSR dashboard, bulk donations</td></tr>
+          </table>
+        </div>
         <p style="margin-top:10px;font-size:11px;">Features: Registration · Login · OTP / 2FA · Social Login · KYC · Profile Management</p>
       </div>
 
@@ -1330,13 +1629,15 @@
         <div><div class="module-title">B. Organization Verification</div><div class="module-subtitle">Multi-tier trust verification</div></div>
       </div>
       <div class="module-body">
-        <table>
-          <tr><th>Tier</th><th>Requirements</th><th>Badge</th></tr>
-          <tr><td>Basic</td><td>Registration + ID</td><td><span class="badge badge-yellow">Bronze ✓</span></td></tr>
-          <tr><td>Standard</td><td>+ Bank + Tax ID</td><td><span class="badge badge-gray">Silver ✓</span></td></tr>
-          <tr><td>Full</td><td>+ Background + Financial</td><td><span class="badge badge-yellow">Gold ✓</span></td></tr>
-        </table>
-        <p style="font-size:11px;margin-top:8px;">Advanced: AI document verification · Third-party background check · Government registry cross-check</p>
+        <div class="table-wrap">
+          <table>
+            <tr><th>Tier</th><th>Requirements</th><th>Badge</th></tr>
+            <tr><td>Basic</td><td>Registration + ID</td><td><span class="badge badge-yellow">Bronze ✓</span></td></tr>
+            <tr><td>Standard</td><td>+ Bank + Tax ID</td><td><span class="badge badge-gray">Silver ✓</span></td></tr>
+            <tr><td>Full</td><td>+ Background + Financial</td><td><span class="badge badge-yellow">Gold ✓</span></td></tr>
+          </table>
+        </div>
+        <p style="font-size:11px;margin-top:8px;">Advanced: AI document verification · Third-party background check · Government registry cross-check · Annual re-verification</p>
       </div>
 
       <div class="module-header">
@@ -1362,14 +1663,16 @@
         <div><div class="module-title">F. Trust Score System</div><div class="module-subtitle">Dynamic NGO reputation engine</div></div>
       </div>
       <div class="module-body">
-        <table>
-          <tr><th>Factor</th><th>Weight</th></tr>
-          <tr><td>Verification level</td><td>30%</td></tr>
-          <tr><td>Timely usage reporting</td><td>25%</td></tr>
-          <tr><td>Donor ratings & reviews</td><td>20%</td></tr>
-          <tr><td>Campaign completion rate</td><td>15%</td></tr>
-          <tr><td>Complaint history</td><td>10%</td></tr>
-        </table>
+        <div class="table-wrap">
+          <table>
+            <tr><th>Factor</th><th>Weight</th></tr>
+            <tr><td>Verification level</td><td>30%</td></tr>
+            <tr><td>Timely usage reporting</td><td>25%</td></tr>
+            <tr><td>Donor ratings & reviews</td><td>20%</td></tr>
+            <tr><td>Campaign completion rate</td><td>15%</td></tr>
+            <tr><td>Complaint history</td><td>10%</td></tr>
+          </table>
+        </div>
         <div class="trust-score-demo">
           <div><span class="score-stars">★★★★★</span> HOPE FOUNDATION</div>
           <div>4.8 / 5.0 Trust Rating | 🟡 Gold Verified</div>
@@ -1381,13 +1684,15 @@
   </div>
 
   <div class="page-footer">
-    <span>TrustBridge — Transparent Charity Platform</span>
-    <span>© 2025 [Your Company] · Confidential</span>
-    <span>Section 10 — System Modules</span>
+    <span>TrustBridge · Idea by Masood Mirza</span>
+    <span>© 2026 · Confidential</span>
+    <span>Section 10 — Modules</span>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════ PAGE 7 — MORE MODULES ═══════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════════
+     SECTION 10 CONTINUED — MODULES Part 2
+══════════════════════════════════════════════════════ -->
 <div class="page">
   <div class="section-header">
     <div class="section-num">10</div>
@@ -1422,16 +1727,18 @@
       </div>
       <div class="module-body">
         <p style="font-size:11px;margin-bottom:8px;"><strong>Channels:</strong> Email · SMS · In-App Push · WhatsApp (optional)</p>
-        <table>
-          <tr><th>Trigger Event</th><th>Notified</th></tr>
-          <tr><td>Donation received</td><td>Donor + Charity</td></tr>
-          <tr><td>Campaign approved</td><td>Charity</td></tr>
-          <tr><td>Goal reached</td><td>Donor + Charity</td></tr>
-          <tr><td>Usage proof uploaded</td><td>Donor</td></tr>
-          <tr><td>Trust score updated</td><td>Charity</td></tr>
-          <tr><td>Suspicious activity</td><td>Admin</td></tr>
-          <tr><td>Tax receipt available</td><td>Donor</td></tr>
-        </table>
+        <div class="table-wrap">
+          <table>
+            <tr><th>Trigger Event</th><th>Who Notified</th></tr>
+            <tr><td>Donation received</td><td>Donor + Charity</td></tr>
+            <tr><td>Campaign approved</td><td>Charity</td></tr>
+            <tr><td>Goal reached</td><td>Donor + Charity</td></tr>
+            <tr><td>Usage proof uploaded</td><td>Donor</td></tr>
+            <tr><td>Trust score updated</td><td>Charity</td></tr>
+            <tr><td>Suspicious activity</td><td>Admin</td></tr>
+            <tr><td>Tax receipt available</td><td>Donor</td></tr>
+          </table>
+        </div>
       </div>
     </div>
 
@@ -1485,13 +1792,15 @@
   </div>
 
   <div class="page-footer">
-    <span>TrustBridge — Transparent Charity Platform</span>
-    <span>© 2025 [Your Company] · Confidential</span>
+    <span>TrustBridge · Idea by Masood Mirza</span>
+    <span>© 2026 · Confidential</span>
     <span>Section 10 — Modules Continued</span>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════ PAGE 8 — COMPLIANCE + SECURITY ═══════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════════
+     SECTION 11 — COMPLIANCE  +  12 — SECURITY
+══════════════════════════════════════════════════════ -->
 <div class="page">
   <div class="section-header">
     <div class="section-num">11</div>
@@ -1514,7 +1823,6 @@
         <li>PCI-DSS payment security standard</li>
         <li>Consumer protection regulations</li>
       </ul>
-
       <h3>Essential Legal Documents</h3>
       <div class="card">
         <ul>
@@ -1529,7 +1837,6 @@
         </ul>
       </div>
     </div>
-
     <div>
       <h3>Complaint & Dispute System</h3>
       <div class="card-blue">
@@ -1541,14 +1848,15 @@
           <li>Report suspicious activity anonymously</li>
           <li>Escalate unresolved disputes to senior admin</li>
         </ul>
-        <table style="margin-top:10px;">
-          <tr><th>Stage</th><th>Timeline</th></tr>
-          <tr><td>Acknowledgment</td><td>Within 24 hours</td></tr>
-          <tr><td>Investigation</td><td>Within 7 business days</td></tr>
-          <tr><td>Resolution</td><td>Within 14 business days</td></tr>
-        </table>
+        <div class="table-wrap" style="margin-top:10px;">
+          <table>
+            <tr><th>Stage</th><th>Timeline</th></tr>
+            <tr><td>Acknowledgment</td><td>Within 24 hours</td></tr>
+            <tr><td>Investigation</td><td>Within 7 business days</td></tr>
+            <tr><td>Resolution</td><td>Within 14 business days</td></tr>
+          </table>
+        </div>
       </div>
-
       <h3>Audit Logs</h3>
       <div class="card-green">
         <p style="font-weight:700;margin-bottom:8px;">System automatically logs:</p>
@@ -1564,7 +1872,7 @@
     </div>
   </div>
 
-  <div class="section-header" style="margin-top:40px;">
+  <div class="section-header" style="margin-top:36px;">
     <div class="section-num">12</div>
     <div>
       <div class="section-title">Data Security Architecture</div>
@@ -1572,28 +1880,32 @@
     </div>
   </div>
 
-  <table>
-    <tr><th>Security Layer</th><th>Implementation</th><th>Standard</th></tr>
-    <tr><td>Data in Transit</td><td>SSL/TLS 1.3 Encryption</td><td><span class="badge badge-green">Industry Standard</span></td></tr>
-    <tr><td>Data at Rest</td><td>AES-256 Encrypted Database</td><td><span class="badge badge-green">Military Grade</span></td></tr>
-    <tr><td>Authentication</td><td>JWT + 2FA + OTP Verification</td><td><span class="badge badge-green">Best Practice</span></td></tr>
-    <tr><td>Access Control</td><td>Role-Based Access Control (RBAC)</td><td><span class="badge badge-green">Zero Trust</span></td></tr>
-    <tr><td>Payment Security</td><td>PCI-DSS Compliant Gateway</td><td><span class="badge badge-green">Required</span></td></tr>
-    <tr><td>Infrastructure</td><td>Secure Cloud (AWS / Azure / GCP)</td><td><span class="badge badge-green">Enterprise</span></td></tr>
-    <tr><td>Backups</td><td>Automated daily (30-day retention)</td><td><span class="badge badge-green">Best Practice</span></td></tr>
-    <tr><td>Penetration Testing</td><td>Quarterly security audits</td><td><span class="badge badge-blue">Recommended</span></td></tr>
-    <tr><td>DDoS Protection</td><td>Cloudflare / AWS Shield</td><td><span class="badge badge-green">Essential</span></td></tr>
-    <tr><td>Document Storage</td><td>Encrypted S3 with signed URLs</td><td><span class="badge badge-green">Secure</span></td></tr>
-  </table>
+  <div class="table-wrap">
+    <table>
+      <tr><th>Security Layer</th><th>Implementation</th><th>Standard</th></tr>
+      <tr><td>Data in Transit</td><td>SSL/TLS 1.3 Encryption</td><td><span class="badge badge-green">Industry Standard</span></td></tr>
+      <tr><td>Data at Rest</td><td>AES-256 Encrypted Database</td><td><span class="badge badge-green">Military Grade</span></td></tr>
+      <tr><td>Authentication</td><td>JWT + 2FA + OTP Verification</td><td><span class="badge badge-green">Best Practice</span></td></tr>
+      <tr><td>Access Control</td><td>Role-Based Access Control (RBAC)</td><td><span class="badge badge-green">Zero Trust</span></td></tr>
+      <tr><td>Payment Security</td><td>PCI-DSS Compliant Gateway</td><td><span class="badge badge-green">Required</span></td></tr>
+      <tr><td>Infrastructure</td><td>Secure Cloud (AWS / Azure / GCP)</td><td><span class="badge badge-green">Enterprise</span></td></tr>
+      <tr><td>Backups</td><td>Automated daily (30-day retention)</td><td><span class="badge badge-green">Best Practice</span></td></tr>
+      <tr><td>Penetration Testing</td><td>Quarterly security audits</td><td><span class="badge badge-blue">Recommended</span></td></tr>
+      <tr><td>DDoS Protection</td><td>Cloudflare / AWS Shield</td><td><span class="badge badge-green">Essential</span></td></tr>
+      <tr><td>Document Storage</td><td>Encrypted S3 with signed URLs</td><td><span class="badge badge-green">Secure</span></td></tr>
+    </table>
+  </div>
 
   <div class="page-footer">
-    <span>TrustBridge — Transparent Charity Platform</span>
-    <span>© 2025 [Your Company] · Confidential</span>
+    <span>TrustBridge · Idea by Masood Mirza</span>
+    <span>© 2026 · Confidential</span>
     <span>Sections 11–12</span>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════ PAGE 9 — TECH ARCHITECTURE ═══════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════════
+     SECTION 13 — TECH ARCHITECTURE  +  14 — UI/UX
+══════════════════════════════════════════════════════ -->
 <div class="page">
   <div class="section-header">
     <div class="section-num">13</div>
@@ -1606,51 +1918,52 @@
   <div class="grid-2">
     <div>
       <h3>Technology Stack</h3>
-      <table>
-        <tr><th>Layer</th><th>Technology</th></tr>
-        <tr><td>Frontend Web</td><td>React.js / Next.js + Tailwind CSS</td></tr>
-        <tr><td>Mobile App</td><td>Flutter (iOS + Android)</td></tr>
-        <tr><td>Backend API</td><td>Node.js / NestJS (REST + WebSocket)</td></tr>
-        <tr><td>Primary DB</td><td>PostgreSQL (financial data)</td></tr>
-        <tr><td>Cache Layer</td><td>Redis (real-time counters)</td></tr>
-        <tr><td>Search Engine</td><td>Elasticsearch (campaign search)</td></tr>
-        <tr><td>File Storage</td><td>AWS S3 + CloudFront CDN</td></tr>
-        <tr><td>Payments</td><td>Stripe / Razorpay / PayPal</td></tr>
-        <tr><td>Cloud Hosting</td><td>AWS / Google Cloud / Azure</td></tr>
-        <tr><td>DevOps</td><td>Docker + Kubernetes + GitHub Actions</td></tr>
-        <tr><td>Monitoring</td><td>DataDog / Sentry</td></tr>
-        <tr><td>State Mgmt</td><td>Redux Toolkit</td></tr>
-      </table>
+      <div class="table-wrap">
+        <table>
+          <tr><th>Layer</th><th>Technology</th></tr>
+          <tr><td>Frontend Web</td><td>React.js / Next.js + Tailwind CSS</td></tr>
+          <tr><td>Mobile App</td><td>Flutter (iOS + Android)</td></tr>
+          <tr><td>Backend API</td><td>Node.js / NestJS (REST + WebSocket)</td></tr>
+          <tr><td>Primary DB</td><td>PostgreSQL (financial data)</td></tr>
+          <tr><td>Cache Layer</td><td>Redis (real-time counters)</td></tr>
+          <tr><td>Search Engine</td><td>Elasticsearch (campaign search)</td></tr>
+          <tr><td>File Storage</td><td>AWS S3 + CloudFront CDN</td></tr>
+          <tr><td>Payments</td><td>Stripe / Razorpay / PayPal</td></tr>
+          <tr><td>Cloud Hosting</td><td>AWS / Google Cloud / Azure</td></tr>
+          <tr><td>DevOps</td><td>Docker + Kubernetes + GitHub Actions</td></tr>
+          <tr><td>Monitoring</td><td>DataDog / Sentry</td></tr>
+        </table>
+      </div>
     </div>
     <div>
       <h3>System Architecture</h3>
-      <div class="arch-box">┌─────────────────────────────────┐
-│          USER LAYER             │
-│  Web  │  iOS  │ Android │ Admin │
-└──────────────┬──────────────────┘
-               │ HTTPS / SSL
-┌──────────────▼──────────────────┐
-│     API GATEWAY + LOAD BALANCER │
-│     Rate Limiting + Auth Guard  │
-└──────────────┬──────────────────┘
-               │
-┌──────────────▼──────────────────┐
-│       APPLICATION SERVICES      │
-│  Auth  │  Payment  │  Campaign  │
-│  User  │  Notify   │  Analytics │
-│  KYC   │  Transp.  │  Compliance│
-└──────┬──────────────────┬───────┘
-       │                  │
-┌──────▼──────┐   ┌───────▼───────┐
-│  DATABASE   │   │   STORAGE     │
-│ PostgreSQL  │   │   AWS S3      │
-│ Redis Cache │   │  Encrypted    │
-│ Elastic.    │   │  CDN Delivery │
-└─────────────┘   └───────────────┘</div>
+      <div class="arch-box">┌──────────────────────────────┐
+│         USER LAYER           │
+│ Web │ iOS │ Android │ Admin  │
+└─────────────┬────────────────┘
+              │ HTTPS / SSL
+┌─────────────▼────────────────┐
+│  API GATEWAY + LOAD BALANCER │
+│  Rate Limiting + Auth Guard  │
+└─────────────┬────────────────┘
+              │
+┌─────────────▼────────────────┐
+│     APPLICATION SERVICES     │
+│ Auth │ Payment │ Campaign    │
+│ User │ Notify  │ Analytics   │
+│ KYC  │ Transp. │ Compliance  │
+└──────┬──────────────┬────────┘
+       │              │
+┌──────▼─────┐ ┌──────▼──────┐
+│  DATABASE  │ │   STORAGE   │
+│ PostgreSQL │ │   AWS S3    │
+│ Redis Cache│ │  Encrypted  │
+│ Elastic.   │ │ CDN Delivery│
+└────────────┘ └─────────────┘</div>
     </div>
   </div>
 
-  <div class="section-header" style="margin-top:40px;">
+  <div class="section-header" style="margin-top:36px;">
     <div class="section-num">14</div>
     <div>
       <div class="section-title">UI/UX Design Guidelines</div>
@@ -1662,50 +1975,55 @@
     <div>
       <blockquote>"Trust through Design — Every UI decision must communicate security, transparency, and reliability."</blockquote>
       <h3>Design Principles</h3>
-      <table>
-        <tr><th>#</th><th>Principle</th><th>Application</th></tr>
-        <tr><td>1</td><td>Clarity</td><td>Users never confused about fund destination</td></tr>
-        <tr><td>2</td><td>Trust Signals</td><td>Badges and verification marks prominent</td></tr>
-        <tr><td>3</td><td>Accessibility</td><td>WCAG 2.1 AA compliant</td></tr>
-        <tr><td>4</td><td>Mobile-First</td><td>Majority of donors use mobile</td></tr>
-        <tr><td>5</td><td>Data Clarity</td><td>Rich dashboards, clutter-free layout</td></tr>
-      </table>
+      <div class="table-wrap">
+        <table>
+          <tr><th>#</th><th>Principle</th><th>Application</th></tr>
+          <tr><td>1</td><td>Clarity</td><td>Users never confused about fund destination</td></tr>
+          <tr><td>2</td><td>Trust Signals</td><td>Badges and verification marks prominent</td></tr>
+          <tr><td>3</td><td>Accessibility</td><td>WCAG 2.1 AA compliant</td></tr>
+          <tr><td>4</td><td>Mobile-First</td><td>Majority of donors use mobile</td></tr>
+          <tr><td>5</td><td>Data Clarity</td><td>Rich dashboards, clutter-free</td></tr>
+        </table>
+      </div>
     </div>
     <div>
       <h3>Design System</h3>
       <div class="card">
-        <div style="margin-bottom:10px;"><span style="font-weight:700;font-size:12px;">Color Palette:</span>
+        <div style="margin-bottom:10px;font-size:12px;"><span style="font-weight:700;">Color Palette:</span>
           <span style="display:inline-block;width:16px;height:16px;background:#0ea5e9;border-radius:3px;margin-left:8px;vertical-align:middle;"></span>
           <span style="display:inline-block;width:16px;height:16px;background:#10b981;border-radius:3px;margin-left:4px;vertical-align:middle;"></span>
           <span style="display:inline-block;width:16px;height:16px;background:#0f172a;border-radius:3px;margin-left:4px;vertical-align:middle;"></span>
           <span style="display:inline-block;width:16px;height:16px;background:#f8fafc;border-radius:3px;margin-left:4px;border:1px solid #e2e8f0;vertical-align:middle;"></span>
         </div>
-        <div style="margin-bottom:8px;font-size:12px;"><span style="font-weight:700;">Typography:</span> Inter (Primary) — Clean, readable sans-serif</div>
+        <div style="margin-bottom:8px;font-size:12px;"><span style="font-weight:700;">Typography:</span> Inter — Clean, readable sans-serif</div>
         <div style="margin-bottom:8px;font-size:12px;"><span style="font-weight:700;">Icons:</span> Heroicons / Lucide — Consistent system-wide</div>
         <div style="font-size:12px;"><span style="font-weight:700;">Components:</span> shadcn/ui + custom charity-specific elements</div>
       </div>
       <h3>Key Screens Required</h3>
-      <div class="grid-2" style="gap:8px;">
-        <div class="badge badge-blue" style="justify-content:center;padding:8px;">🏠 Home / Landing</div>
-        <div class="badge badge-blue" style="justify-content:center;padding:8px;">📋 Campaign List</div>
-        <div class="badge badge-blue" style="justify-content:center;padding:8px;">🎯 Campaign Detail</div>
-        <div class="badge badge-blue" style="justify-content:center;padding:8px;">🏢 Charity Profile</div>
-        <div class="badge badge-green" style="justify-content:center;padding:8px;">💰 Donor Dashboard</div>
-        <div class="badge badge-green" style="justify-content:center;padding:8px;">📊 Charity Dashboard</div>
-        <div class="badge badge-gray" style="justify-content:center;padding:8px;">🛡️ Admin Panel</div>
-        <div class="badge badge-gray" style="justify-content:center;padding:8px;">💳 Checkout Flow</div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;">
+        <span class="badge badge-blue">🏠 Home / Landing</span>
+        <span class="badge badge-blue">📋 Campaign List</span>
+        <span class="badge badge-blue">🎯 Campaign Detail</span>
+        <span class="badge badge-blue">🏢 Charity Profile</span>
+        <span class="badge badge-green">💰 Donor Dashboard</span>
+        <span class="badge badge-green">📊 Charity Dashboard</span>
+        <span class="badge badge-gray">🛡️ Admin Panel</span>
+        <span class="badge badge-gray">💳 Checkout Flow</span>
+        <span class="badge badge-gray">📱 Mobile App Screens</span>
       </div>
     </div>
   </div>
 
   <div class="page-footer">
-    <span>TrustBridge — Transparent Charity Platform</span>
-    <span>© 2025 [Your Company] · Confidential</span>
+    <span>TrustBridge · Idea by Masood Mirza</span>
+    <span>© 2026 · Confidential</span>
     <span>Sections 13–14</span>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════ PAGE 10 — TIMELINE ═══════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════════
+     SECTION 15 — TIMELINE  +  16 — TEAM
+══════════════════════════════════════════════════════ -->
 <div class="page">
   <div class="section-header">
     <div class="section-num">15</div>
@@ -1726,26 +2044,28 @@
     <div class="phase-body">
       <div class="grid-2">
         <div>
-          <h4>Development Milestones</h4>
-          <table>
-            <tr><th>Week</th><th>Deliverable</th></tr>
-            <tr><td>1–2</td><td>Requirements finalization & architecture design</td></tr>
-            <tr><td>3–4</td><td>Database design, API structure planning</td></tr>
-            <tr><td>5–8</td><td>Core backend (Auth, Users, Campaigns, Payments)</td></tr>
-            <tr><td>9–11</td><td>Frontend dashboards and UI implementation</td></tr>
-            <tr><td>12–14</td><td>Admin panel, verification workflow, payment flow</td></tr>
-            <tr><td>15–16</td><td>Testing, bug fixes, staging deployment, launch</td></tr>
-          </table>
+          <h4>Milestones</h4>
+          <div class="table-wrap">
+            <table>
+              <tr><th>Week</th><th>Deliverable</th></tr>
+              <tr><td>1–2</td><td>Requirements & architecture</td></tr>
+              <tr><td>3–4</td><td>Database & API structure</td></tr>
+              <tr><td>5–8</td><td>Core backend development</td></tr>
+              <tr><td>9–11</td><td>Frontend dashboards & UI</td></tr>
+              <tr><td>12–14</td><td>Admin panel & payment flow</td></tr>
+              <tr><td>15–16</td><td>Testing, fixes & launch</td></tr>
+            </table>
+          </div>
         </div>
         <div>
           <h4>MVP Deliverables</h4>
           <ul class="check-list">
-            <li>NGO registration and verification system</li>
+            <li>NGO registration and verification</li>
             <li>Campaign creation and management</li>
-            <li>Secure multi-gateway donation processing</li>
-            <li>Basic donor dashboard with history</li>
-            <li>Admin approval and oversight panel</li>
-            <li>Automated receipts and tax certificates</li>
+            <li>Secure donation processing</li>
+            <li>Basic donor dashboard</li>
+            <li>Admin approval panel</li>
+            <li>Automated receipts and tax certs</li>
             <li>Basic real-time fund tracking</li>
           </ul>
         </div>
@@ -1758,22 +2078,22 @@
       <div class="phase-num">2</div>
       <div>
         <div class="phase-name">Phase 2 — Trust Enhancement</div>
-        <div class="phase-time">Months 5–8 · Advanced Trust Features + Mobile App</div>
+        <div class="phase-time">Months 5–8 · Advanced Features + Mobile App</div>
       </div>
     </div>
     <div class="phase-body">
       <div class="grid-2">
         <ul class="check-list">
-          <li>Dynamic Trust Score engine (live calculation)</li>
-          <li>Donor review and star rating system</li>
-          <li>Mandatory usage proof upload module</li>
-          <li>Phased fund withdrawal approval system</li>
+          <li>Dynamic Trust Score engine</li>
+          <li>Donor review and star rating</li>
+          <li>Mandatory usage proof module</li>
+          <li>Phased withdrawal approval</li>
         </ul>
         <ul class="check-list">
-          <li>Complaint and dispute resolution system</li>
-          <li>Enhanced multi-channel notification system</li>
-          <li>Mobile app launch (iOS + Android via Flutter)</li>
-          <li>Charity analytics and insights dashboard</li>
+          <li>Complaint and dispute system</li>
+          <li>Enhanced notification system</li>
+          <li>Mobile app launch (iOS + Android)</li>
+          <li>Charity analytics dashboard</li>
         </ul>
       </div>
     </div>
@@ -1790,22 +2110,22 @@
     <div class="phase-body">
       <div class="grid-2">
         <ul class="check-list">
-          <li>AML detection and compliance automation engine</li>
-          <li>AI-powered fraud monitoring and flagging</li>
-          <li>Corporate CSR dashboard and bulk donations</li>
-          <li>Multi-currency and multi-country support</li>
+          <li>AML detection and compliance engine</li>
+          <li>AI-powered fraud monitoring</li>
+          <li>Corporate CSR dashboard</li>
+          <li>Multi-currency and multi-country</li>
         </ul>
         <ul class="check-list">
-          <li>Advanced analytics and business intelligence</li>
-          <li>Blockchain-based audit trail (optional)</li>
-          <li>Third-party API integrations (government DB)</li>
-          <li>Performance optimization for global scale</li>
+          <li>Advanced analytics & BI</li>
+          <li>Blockchain audit trail (optional)</li>
+          <li>Third-party API integrations</li>
+          <li>Performance optimization at scale</li>
         </ul>
       </div>
     </div>
   </div>
 
-  <div class="section-header" style="margin-top:40px;">
+  <div class="section-header" style="margin-top:36px;">
     <div class="section-num">16</div>
     <div>
       <div class="section-title">Team Structure Required</div>
@@ -1813,27 +2133,31 @@
     </div>
   </div>
 
-  <table>
-    <tr><th>Role</th><th>Count</th><th>Primary Responsibility</th><th>Phase</th></tr>
-    <tr><td>Project Manager</td><td>1</td><td>Delivery oversight, client communication, sprint planning</td><td>All</td></tr>
-    <tr><td>UI/UX Designer</td><td>1–2</td><td>Wireframes, prototypes, design system, user testing</td><td>All</td></tr>
-    <tr><td>Frontend Developer</td><td>2</td><td>React/Next.js web application development</td><td>All</td></tr>
-    <tr><td>Backend Developer</td><td>2</td><td>API, business logic, database architecture</td><td>All</td></tr>
-    <tr><td>Mobile Developer</td><td>1–2</td><td>Flutter iOS + Android application</td><td>Phase 2</td></tr>
-    <tr><td>DevOps Engineer</td><td>1</td><td>Cloud infrastructure, CI/CD, security, monitoring</td><td>All</td></tr>
-    <tr><td>QA Engineer</td><td>1</td><td>Test planning, functional and security testing</td><td>All</td></tr>
-    <tr><td>Business Analyst</td><td>1</td><td>Requirements gathering, documentation, UAT</td><td>Phase 1–2</td></tr>
-    <tr><td>Legal Consultant</td><td>1</td><td>Compliance documents, AML policy (part-time)</td><td>Phase 1</td></tr>
-  </table>
+  <div class="table-wrap">
+    <table>
+      <tr><th>Role</th><th>Count</th><th>Primary Responsibility</th><th>Phase</th></tr>
+      <tr><td>Project Manager</td><td>1</td><td>Delivery oversight, client communication</td><td>All</td></tr>
+      <tr><td>UI/UX Designer</td><td>1–2</td><td>Wireframes, prototypes, design system</td><td>All</td></tr>
+      <tr><td>Frontend Developer</td><td>2</td><td>React/Next.js web application</td><td>All</td></tr>
+      <tr><td>Backend Developer</td><td>2</td><td>API, business logic, database</td><td>All</td></tr>
+      <tr><td>Mobile Developer</td><td>1–2</td><td>Flutter iOS + Android app</td><td>Phase 2</td></tr>
+      <tr><td>DevOps Engineer</td><td>1</td><td>Cloud, CI/CD, security, monitoring</td><td>All</td></tr>
+      <tr><td>QA Engineer</td><td>1</td><td>Testing, functional and security QA</td><td>All</td></tr>
+      <tr><td>Business Analyst</td><td>1</td><td>Requirements, documentation, UAT</td><td>Phase 1–2</td></tr>
+      <tr><td>Legal Consultant</td><td>1</td><td>Compliance documents, AML policy</td><td>Phase 1</td></tr>
+    </table>
+  </div>
 
   <div class="page-footer">
-    <span>TrustBridge — Transparent Charity Platform</span>
-    <span>© 2025 [Your Company] · Confidential</span>
+    <span>TrustBridge · Idea by Masood Mirza</span>
+    <span>© 2026 · Confidential</span>
     <span>Sections 15–16</span>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════ PAGE 11 — BUDGET + BUSINESS MODEL ═══════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════════
+     SECTION 17 — BUDGET  +  18 — BUSINESS MODEL
+══════════════════════════════════════════════════════ -->
 <div class="page">
   <div class="section-header">
     <div class="section-num">17</div>
@@ -1843,60 +2167,62 @@
     </div>
   </div>
 
-  <div class="info-box">⚠️ <strong>Note:</strong> These are approximate estimated ranges based on standard market rates. A precise quote will be provided after a detailed discovery and requirements session.</div>
+  <div class="info-box">⚠️ <strong>Note:</strong> These are approximate estimated ranges. A precise quote will be provided after a detailed discovery and requirements session.</div>
 
   <div class="grid-2">
     <div>
       <h3>Development Cost by Phase</h3>
-      <table>
-        <tr><th>Phase</th><th>Scope</th><th>Estimated Range</th></tr>
-        <tr><td>Phase 1 — MVP</td><td>Core web platform</td><td><strong>$15,000 – $25,000</strong></td></tr>
-        <tr><td>Phase 2 — Trust</td><td>Trust features + mobile app</td><td><strong>$10,000 – $18,000</strong></td></tr>
-        <tr><td>Phase 3 — Scale</td><td>AI, corporate, multi-currency</td><td><strong>$12,000 – $20,000</strong></td></tr>
-        <tr style="background:#eff6ff;"><td><strong>Total Project</strong></td><td><strong>Full platform delivery</strong></td><td><strong>$37,000 – $63,000</strong></td></tr>
-      </table>
-
-      <h3>Monthly Operational Costs (Post-Launch)</h3>
-      <table>
-        <tr><th>Cost Item</th><th>Estimated Monthly</th></tr>
-        <tr><td>Cloud hosting (AWS/GCP)</td><td>$200 – $800</td></tr>
-        <tr><td>Payment gateway fees</td><td>1.5 – 2.9% per transaction</td></tr>
-        <tr><td>Email / SMS services</td><td>$50 – $200</td></tr>
-        <tr><td>Maintenance & support</td><td>$500 – $2,000</td></tr>
-        <tr><td>Security monitoring</td><td>$100 – $300</td></tr>
-        <tr><td>Legal / compliance (annual)</td><td>$2,000 – $5,000/yr</td></tr>
-      </table>
+      <div class="table-wrap">
+        <table>
+          <tr><th>Phase</th><th>Scope</th><th>Estimated Range</th></tr>
+          <tr><td>Phase 1 — MVP</td><td>Core web platform</td><td><strong>$15,000 – $25,000</strong></td></tr>
+          <tr><td>Phase 2 — Trust</td><td>Features + mobile app</td><td><strong>$10,000 – $18,000</strong></td></tr>
+          <tr><td>Phase 3 — Scale</td><td>AI, corporate, multi-currency</td><td><strong>$12,000 – $20,000</strong></td></tr>
+          <tr style="background:#eff6ff;"><td><strong>Total Project</strong></td><td><strong>Full delivery</strong></td><td><strong>$37,000 – $63,000</strong></td></tr>
+        </table>
+      </div>
+      <h3>Monthly Operational Costs</h3>
+      <div class="table-wrap">
+        <table>
+          <tr><th>Cost Item</th><th>Est. Monthly</th></tr>
+          <tr><td>Cloud hosting (AWS/GCP)</td><td>$200 – $800</td></tr>
+          <tr><td>Payment gateway fees</td><td>1.5–2.9% per transaction</td></tr>
+          <tr><td>Email / SMS services</td><td>$50 – $200</td></tr>
+          <tr><td>Maintenance & support</td><td>$500 – $2,000</td></tr>
+          <tr><td>Security monitoring</td><td>$100 – $300</td></tr>
+          <tr><td>Legal / compliance</td><td>$2,000–$5,000/yr</td></tr>
+        </table>
+      </div>
     </div>
-
     <div>
-      <div class="section-header" style="border:none;padding-bottom:0;margin-bottom:0;">
+      <div class="section-header" style="border:none;padding-bottom:0;margin-bottom:4px;">
         <div class="section-num">18</div>
         <div><div class="section-title">Business Model</div><div class="section-subtitle">Revenue streams and projections</div></div>
       </div>
-
       <h3>Revenue Streams</h3>
-      <table>
-        <tr><th>Stream</th><th>Model</th><th>Value</th></tr>
-        <tr><td>Transaction Commission</td><td>2–5% per donation</td><td>Primary revenue</td></tr>
-        <tr><td>Featured Campaigns</td><td>Homepage promotion</td><td>$50–$200/week</td></tr>
-        <tr><td>Premium Verification</td><td>Expedited fast-track</td><td>$99–$299/year</td></tr>
-        <tr><td>Corporate CSR Package</td><td>Custom dashboard + reports</td><td>$500–$2,000/mo</td></tr>
-        <tr><td>NGO Analytics Sub.</td><td>Advanced insights</td><td>$29–$99/month</td></tr>
-        <tr><td>White-label License</td><td>License to markets</td><td>Custom pricing</td></tr>
-      </table>
-
+      <div class="table-wrap">
+        <table>
+          <tr><th>Stream</th><th>Model</th><th>Value</th></tr>
+          <tr><td>Transaction Commission</td><td>2–5% per donation</td><td>Primary</td></tr>
+          <tr><td>Featured Campaigns</td><td>Homepage promotion</td><td>$50–$200/wk</td></tr>
+          <tr><td>Premium Verification</td><td>Expedited fast-track</td><td>$99–$299/yr</td></tr>
+          <tr><td>Corporate CSR</td><td>Custom dashboard</td><td>$500–$2K/mo</td></tr>
+          <tr><td>NGO Analytics Sub.</td><td>Advanced insights</td><td>$29–$99/mo</td></tr>
+          <tr><td>White-label License</td><td>License to markets</td><td>Custom</td></tr>
+        </table>
+      </div>
       <h3>Revenue Projections</h3>
       <div style="margin-top:10px;">
         <div class="revenue-bar">
-          <div class="rb-label"><span>Year 1 — $500K donations processed</span><span style="color:#0ea5e9;">$15K–$25K revenue</span></div>
+          <div class="rb-label"><span>Year 1 — $500K processed</span><span style="color:#0ea5e9;">$15K–$25K</span></div>
           <div class="rb-track"><div class="rb-fill" style="width:20%;"></div></div>
         </div>
         <div class="revenue-bar">
-          <div class="rb-label"><span>Year 2 — $2M donations processed</span><span style="color:#0ea5e9;">$60K–$100K revenue</span></div>
+          <div class="rb-label"><span>Year 2 — $2M processed</span><span style="color:#0ea5e9;">$60K–$100K</span></div>
           <div class="rb-track"><div class="rb-fill" style="width:50%;"></div></div>
         </div>
         <div class="revenue-bar">
-          <div class="rb-label"><span>Year 3 — $8M donations processed</span><span style="color:#0ea5e9;">$240K–$400K revenue</span></div>
+          <div class="rb-label"><span>Year 3 — $8M processed</span><span style="color:#0ea5e9;">$240K–$400K</span></div>
           <div class="rb-track"><div class="rb-fill" style="width:100%;"></div></div>
         </div>
       </div>
@@ -1904,13 +2230,15 @@
   </div>
 
   <div class="page-footer">
-    <span>TrustBridge — Transparent Charity Platform</span>
-    <span>© 2025 [Your Company] · Confidential</span>
+    <span>TrustBridge · Idea by Masood Mirza</span>
+    <span>© 2026 · Confidential</span>
     <span>Sections 17–18</span>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════ PAGE 12 — KPIs + RISKS ═══════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════════
+     SECTION 19 — KPIs  +  20 — RISKS
+══════════════════════════════════════════════════════ -->
 <div class="page">
   <div class="section-header">
     <div class="section-num">19</div>
@@ -1925,14 +2253,14 @@
     <div class="kpi-card"><div class="kpi-val">50+</div><div class="kpi-label">Verified NGOs</div></div>
     <div class="kpi-card"><div class="kpi-val">$500K+</div><div class="kpi-label">Donations Processed</div></div>
     <div class="kpi-card"><div class="kpi-val">4.5/5</div><div class="kpi-label">Avg Trust Score</div></div>
-    <div class="kpi-card"><div class="kpi-val">40%+</div><div class="kpi-label">Donor Retention Rate</div></div>
+    <div class="kpi-card"><div class="kpi-val">40%+</div><div class="kpi-label">Donor Retention</div></div>
     <div class="kpi-card"><div class="kpi-val">99.5%+</div><div class="kpi-label">Platform Uptime</div></div>
     <div class="kpi-card"><div class="kpi-val">0</div><div class="kpi-label">Fraud Incidents</div></div>
     <div class="kpi-card"><div class="kpi-val">75%+</div><div class="kpi-label">Campaign Completion</div></div>
     <div class="kpi-card"><div class="kpi-val">5,000+</div><div class="kpi-label">App Downloads</div></div>
   </div>
 
-  <div class="section-header" style="margin-top:40px;">
+  <div class="section-header" style="margin-top:36px;">
     <div class="section-num">20</div>
     <div>
       <div class="section-title">Risks & Mitigation Strategy</div>
@@ -1940,72 +2268,31 @@
     </div>
   </div>
 
-  <table>
-    <tr><th>Risk</th><th>Probability</th><th>Impact</th><th>Mitigation Strategy</th></tr>
-    <tr>
-      <td>Fake NGO registrations</td>
-      <td><span class="risk-high">High</span></td>
-      <td><span class="risk-high">High</span></td>
-      <td>Multi-tier verification + government database cross-check</td>
-    </tr>
-    <tr>
-      <td>Misuse of donated funds</td>
-      <td><span class="risk-med">Medium</span></td>
-      <td><span class="risk-high">Critical</span></td>
-      <td>Escrow system + mandatory proof before every withdrawal</td>
-    </tr>
-    <tr>
-      <td>Data breach / cyber attack</td>
-      <td><span class="risk-med">Medium</span></td>
-      <td><span class="risk-high">Critical</span></td>
-      <td>End-to-end encryption + quarterly penetration testing</td>
-    </tr>
-    <tr>
-      <td>Legal / regulatory issues</td>
-      <td><span class="risk-med">Medium</span></td>
-      <td><span class="risk-high">High</span></td>
-      <td>Dedicated legal compliance team from Day 1</td>
-    </tr>
-    <tr>
-      <td>Low donor adoption</td>
-      <td><span class="risk-med">Medium</span></td>
-      <td><span class="risk-high">High</span></td>
-      <td>Strategic marketing + partnerships with trusted brands</td>
-    </tr>
-    <tr>
-      <td>Payment gateway failure</td>
-      <td><span class="risk-low">Low</span></td>
-      <td><span class="risk-high">High</span></td>
-      <td>Multi-gateway redundancy + automatic failover system</td>
-    </tr>
-    <tr>
-      <td>Charity non-compliance</td>
-      <td><span class="risk-med">Medium</span></td>
-      <td><span class="risk-med">Medium</span></td>
-      <td>Automated reminders + account suspension policy</td>
-    </tr>
-    <tr>
-      <td>Competitor platform copying</td>
-      <td><span class="risk-med">Medium</span></td>
-      <td><span class="risk-med">Medium</span></td>
-      <td>First-mover advantage + strong community trust building</td>
-    </tr>
-    <tr>
-      <td>Technical scalability issues</td>
-      <td><span class="risk-low">Low</span></td>
-      <td><span class="risk-med">Medium</span></td>
-      <td>Cloud-native architecture + load testing before launch</td>
-    </tr>
-  </table>
+  <div class="table-wrap">
+    <table>
+      <tr><th>Risk</th><th>Probability</th><th>Impact</th><th>Mitigation Strategy</th></tr>
+      <tr><td>Fake NGO registrations</td><td><span class="risk-high">High</span></td><td><span class="risk-high">High</span></td><td>Multi-tier verification + government database cross-check</td></tr>
+      <tr><td>Misuse of donated funds</td><td><span class="risk-med">Medium</span></td><td><span class="risk-high">Critical</span></td><td>Escrow system + mandatory proof before every withdrawal</td></tr>
+      <tr><td>Data breach / cyber attack</td><td><span class="risk-med">Medium</span></td><td><span class="risk-high">Critical</span></td><td>End-to-end encryption + quarterly penetration testing</td></tr>
+      <tr><td>Legal / regulatory issues</td><td><span class="risk-med">Medium</span></td><td><span class="risk-high">High</span></td><td>Dedicated legal compliance team from Day 1</td></tr>
+      <tr><td>Low donor adoption</td><td><span class="risk-med">Medium</span></td><td><span class="risk-high">High</span></td><td>Strategic marketing + trusted brand partnerships</td></tr>
+      <tr><td>Payment gateway failure</td><td><span class="risk-low">Low</span></td><td><span class="risk-high">High</span></td><td>Multi-gateway redundancy + automatic failover</td></tr>
+      <tr><td>Charity non-compliance</td><td><span class="risk-med">Medium</span></td><td><span class="risk-med">Medium</span></td><td>Automated reminders + account suspension policy</td></tr>
+      <tr><td>Competitor copying</td><td><span class="risk-med">Medium</span></td><td><span class="risk-med">Medium</span></td><td>First-mover advantage + community trust building</td></tr>
+      <tr><td>Technical scalability</td><td><span class="risk-low">Low</span></td><td><span class="risk-med">Medium</span></td><td>Cloud-native architecture + load testing pre-launch</td></tr>
+    </table>
+  </div>
 
   <div class="page-footer">
-    <span>TrustBridge — Transparent Charity Platform</span>
-    <span>© 2025 [Your Company] · Confidential</span>
+    <span>TrustBridge · Idea by Masood Mirza</span>
+    <span>© 2026 · Confidential</span>
     <span>Sections 19–20</span>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════ PAGE 13 — VISION + SUMMARY ═══════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════════
+     SECTION 21 — VISION  +  22 — SUMMARY
+══════════════════════════════════════════════════════ -->
 <div class="page">
   <div class="section-header">
     <div class="section-num">21</div>
@@ -2018,13 +2305,15 @@
   <div class="grid-2">
     <div>
       <h3>5-Year Strategic Roadmap</h3>
-      <table>
-        <tr><th>Period</th><th>Goal</th></tr>
-        <tr><td>Year 1–2</td><td>Become leading transparency platform in South Asia</td></tr>
-        <tr><td>Year 2–3</td><td>Expand to Middle East and global diaspora markets</td></tr>
-        <tr><td>Year 3–4</td><td>Partner with government CSR programs and INGOs</td></tr>
-        <tr><td>Year 4–5</td><td>Become global standard for charity accountability</td></tr>
-      </table>
+      <div class="table-wrap">
+        <table>
+          <tr><th>Period</th><th>Goal</th></tr>
+          <tr><td>Year 1–2</td><td>Leading transparency platform in South Asia</td></tr>
+          <tr><td>Year 2–3</td><td>Expand to Middle East and global diaspora markets</td></tr>
+          <tr><td>Year 3–4</td><td>Partner with government CSR programs and INGOs</td></tr>
+          <tr><td>Year 4–5</td><td>Global standard for charity accountability</td></tr>
+        </table>
+      </div>
     </div>
     <div>
       <h3>Future Capabilities</h3>
@@ -2034,7 +2323,7 @@
           <li>🤖 AI-powered fraud detection and NGO scoring</li>
           <li>🌐 Global charity impact index (public database)</li>
           <li>📊 Official CSR reporting tool for corporations</li>
-          <li>🏛️ Government partnership for social welfare fund tracking</li>
+          <li>🏛️ Government partnership for welfare fund tracking</li>
           <li>🌍 Multi-language support (15+ languages)</li>
           <li>📱 IoT integration for real-time project monitoring</li>
         </ul>
@@ -2042,15 +2331,15 @@
     </div>
   </div>
 
-  <div class="section-header" style="margin-top:40px;">
+  <div class="section-header" style="margin-top:36px;">
     <div class="section-num">22</div>
     <div>
       <div class="section-title">Project Summary</div>
-      <div class="section-subtitle">The complete picture in one view</div>
+      <div class="section-subtitle">The complete picture — originated by Masood Mirza</div>
     </div>
   </div>
 
-  <blockquote>"TrustBridge is not just a donation platform — it is a Trust Infrastructure for the entire charity sector."</blockquote>
+  <blockquote>"TrustBridge is not just a donation platform — it is a Trust Infrastructure for the entire charity sector." — Masood Mirza, Project Founder</blockquote>
 
   <div class="pillar-grid">
     <div class="pillar-card pc1">
@@ -2061,12 +2350,12 @@
     <div class="pillar-card pc2">
       <div class="p-icon">📡</div>
       <div class="p-title">Track</div>
-      <div class="p-text">Every rupee/dollar is tracked from donor to final use</div>
+      <div class="p-text">Every rupee/dollar tracked from donor to final use</div>
     </div>
     <div class="pillar-card pc3">
       <div class="p-icon">📋</div>
       <div class="p-title">Prove</div>
-      <div class="p-text">Every expense is publicly documented with verifiable proof</div>
+      <div class="p-text">Every expense publicly documented with verifiable proof</div>
     </div>
     <div class="pillar-card pc4">
       <div class="p-icon">⭐</div>
@@ -2076,30 +2365,32 @@
     <div class="pillar-card pc5">
       <div class="p-icon">🛡️</div>
       <div class="p-title">Protect</div>
-      <div class="p-text">Donors are protected through escrow and compliance systems</div>
+      <div class="p-text">Donors protected through escrow and compliance systems</div>
     </div>
     <div class="pillar-card pc6">
       <div class="p-icon">🌱</div>
       <div class="p-title">Grow</div>
-      <div class="p-text">Small NGOs get equal opportunity to build credibility and scale</div>
+      <div class="p-text">Small NGOs get equal opportunity to build credibility</div>
     </div>
   </div>
 
   <div class="highlight-box">
     <div class="big">🎯 Goal: Become the World's Most Trusted Donation Platform</div>
-    <div class="small">We are not building an app. We are building the trust layer that the charity sector has always needed.</div>
+    <div class="small">We are not building an app. We are building the trust layer the charity sector has always needed.</div>
   </div>
 
   <div class="page-footer">
-    <span>TrustBridge — Transparent Charity Platform</span>
-    <span>© 2025 [Your Company] · Confidential</span>
+    <span>TrustBridge · Idea by Masood Mirza</span>
+    <span>© 2026 · Confidential</span>
     <span>Sections 21–22</span>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════ FINAL PAGE ═══════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════════
+     FINAL PAGE — NEXT STEPS
+══════════════════════════════════════════════════════ -->
 <div class="final-page">
-  <div style="font-size:50px;margin-bottom:20px;">🌉</div>
+  <div style="font-size:48px;margin-bottom:20px;">🌉</div>
   <h2>Ready to Build TrustBridge?</h2>
   <p>Let's take the next step together and create the most transparent charity platform in the world.</p>
 
@@ -2119,29 +2410,29 @@
   </div>
 
   <div class="contact-box">
-    <div class="label">Get In Touch</div>
+    <div class="label">Contact the Project Founder</div>
     <div class="contact-row">
       <div class="contact-item">
-        <div class="ci-label">Company</div>
-        <div class="ci-value">[Your Company Name]</div>
+        <div class="ci-label">Project Idea By</div>
+        <div class="ci-value">Masood Mirza</div>
       </div>
       <div class="contact-item">
-        <div class="ci-label">Email</div>
-        <div class="ci-value">[your@email.com]</div>
+        <div class="ci-label">📞 Mobile</div>
+        <div class="ci-value">+91 86868 67862</div>
       </div>
       <div class="contact-item">
-        <div class="ci-label">Phone</div>
-        <div class="ci-value">[+XX XXX XXXXXXX]</div>
+        <div class="ci-label">📅 Date</div>
+        <div class="ci-value">9 July 2026</div>
       </div>
       <div class="contact-item">
-        <div class="ci-label">Website</div>
-        <div class="ci-value">[www.yourwebsite.com]</div>
+        <div class="ci-label">🌉 Project</div>
+        <div class="ci-value">TrustBridge</div>
       </div>
     </div>
   </div>
 
-  <div style="margin-top:40px;font-size:11px;color:rgba(255,255,255,0.3);">
-    © 2025 [Your Company Name] · All Rights Reserved · This document is confidential and prepared exclusively for the named client.
+  <div style="margin-top:36px;font-size:11px;color:rgba(255,255,255,0.3);text-align:center;padding:0 20px;">
+    © 2026 TrustBridge · All Rights Reserved · Project Idea by Masood Mirza · Document Date: 9 July 2026
   </div>
 </div>
 
