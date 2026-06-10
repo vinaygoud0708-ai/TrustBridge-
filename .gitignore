@@ -30,8 +30,12 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
+# env files — DO NOT commit real secrets
+.env
+.env.local
+.env.*.local
+# Allow the example template
+!.env.example
 
 # vercel
 .vercel
@@ -40,7 +44,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# database
-*.db
-!prisma/dev.db
+# database — keep the seeded SQLite DB for demo deployments
 *.db-journal
+# Uncomment to ignore dev.db (if you use a hosted DB in production):
+# prisma/dev.db
