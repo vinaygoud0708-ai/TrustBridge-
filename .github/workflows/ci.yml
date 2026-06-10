@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    name: Build & Lint
+    name: Build & Type Check
     runs-on: ubuntu-latest
 
     steps:
@@ -22,23 +22,18 @@ jobs:
           cache: "npm"
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
       - name: Generate Prisma client
-        run: npx prisma generate
+        run: node_modules/.bin/prisma generate
         env:
           DATABASE_URL: "file:./prisma/dev.db"
-
-      - name: Run ESLint
-        run: npm run lint
-        continue-on-error: true
 
       - name: Build application
-        run: npx next build
+        run: node node_modules/next/dist/bin/next build
         env:
-          # Use mock values for build-time checks
           DATABASE_URL: "file:./prisma/dev.db"
-          NEXTAUTH_SECRET: "ci-build-secret-do-not-use-in-prod"
+          NEXTAUTH_SECRET: "ci-build-secret-placeholder"
           NEXTAUTH_URL: "http://localhost:3000"
           NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: "pk_test_mock"
           NEXT_PUBLIC_PUSHER_KEY: "mock"

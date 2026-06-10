@@ -1,16 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Use standalone output for Vercel deployment
-  output: "standalone",
+  // NOTE: Do NOT set output: "standalone" on Vercel — Vercel manages its own output format.
+  // output: "standalone" is only for self-hosted / Docker deployments.
 
-  // Suppress pdfkit canvas warning (optional peer dep not needed for server-side PDF gen)
-  webpack: (config, { isServer }) => {
-    if (isServer) {
-      config.externals = [...(config.externals || []), "canvas"];
-    }
-    return config;
-  },
+  // Use Turbopack (default in Next.js 16) with an empty config to silence warnings
+  turbopack: {},
 };
 
 export default nextConfig;
