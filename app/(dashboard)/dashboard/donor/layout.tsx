@@ -4,15 +4,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import Navbar from "@/components/shared/navbar";
 import Footer from "@/components/shared/footer";
-import { 
-  Heart, 
-  History, 
-  TrendingUp, 
-  Bookmark, 
-  Settings, 
-  LayoutDashboard,
-  ShieldAlert
-} from "lucide-react";
+import { ShieldAlert } from "lucide-react";
 import SidebarNav from "./sidebar-nav";
 
 export default async function DonorLayout({
@@ -43,11 +35,11 @@ export default async function DonorLayout({
   }
 
   const navItems = [
-    { name: "Overview", href: "/dashboard/donor", icon: LayoutDashboard },
-    { name: "Donations", href: "/dashboard/donor/donations", icon: History },
-    { name: "Impact Report", href: "/dashboard/donor/impact", icon: TrendingUp },
-    { name: "Saved", href: "/dashboard/donor/saved", icon: Bookmark },
-    { name: "Settings", href: "/dashboard/donor/settings", icon: Settings },
+    { name: "Overview", href: "/dashboard/donor", iconName: "LayoutDashboard" },
+    { name: "Donations", href: "/dashboard/donor/donations", iconName: "History" },
+    { name: "Impact Report", href: "/dashboard/donor/impact", iconName: "TrendingUp" },
+    { name: "Saved", href: "/dashboard/donor/saved", iconName: "Bookmark" },
+    { name: "Settings", href: "/dashboard/donor/settings", iconName: "Settings" },
   ];
 
   return (

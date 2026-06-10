@@ -3,12 +3,34 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { LucideIcon } from "lucide-react";
+import { 
+  LayoutDashboard,
+  ShieldCheck,
+  Megaphone,
+  ArrowDownToLine,
+  AlertTriangle,
+  Users,
+  DollarSign,
+  Settings,
+  HelpCircle,
+  LucideIcon
+} from "lucide-react";
+
+const iconMap: Record<string, LucideIcon> = {
+  LayoutDashboard,
+  ShieldCheck,
+  Megaphone,
+  ArrowDownToLine,
+  AlertTriangle,
+  Users,
+  DollarSign,
+  Settings,
+};
 
 interface NavItem {
   name: string;
   href: string;
-  icon: LucideIcon;
+  iconName: string;
 }
 
 interface SidebarNavProps {
@@ -21,7 +43,7 @@ export default function SidebarNav({ items }: SidebarNavProps) {
   return (
     <nav className="flex flex-row md:flex-col overflow-x-auto md:overflow-visible gap-1.5 pb-2 md:pb-0 scrollbar-none">
       {items.map((item) => {
-        const Icon = item.icon;
+        const Icon = iconMap[item.iconName] || HelpCircle;
         // Exact match or sub-paths for children page selections
         const isActive = 
           pathname === item.href || 

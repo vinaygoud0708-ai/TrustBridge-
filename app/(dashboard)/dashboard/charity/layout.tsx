@@ -4,14 +4,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import Navbar from "@/components/shared/navbar";
 import Footer from "@/components/shared/footer";
-import { 
-  LayoutDashboard,
-  Megaphone,
-  ArrowDownToLine,
-  Award,
-  Settings,
-  ShieldAlert
-} from "lucide-react";
+import { ShieldAlert } from "lucide-react";
 import SidebarNav from "./sidebar-nav";
 
 export default async function CharityLayout({
@@ -47,11 +40,11 @@ export default async function CharityLayout({
   }
 
   const navItems = [
-    { name: "Overview", href: "/dashboard/charity", icon: LayoutDashboard },
-    { name: "Campaigns", href: "/dashboard/charity/campaigns", icon: Megaphone },
-    { name: "Withdrawals", href: "/dashboard/charity/withdraw", icon: ArrowDownToLine },
-    { name: "Trust Score", href: "/dashboard/charity/trust-score", icon: Award },
-    { name: "Settings", href: "/dashboard/charity/settings", icon: Settings },
+    { name: "Overview", href: "/dashboard/charity", iconName: "LayoutDashboard" },
+    { name: "Campaigns", href: "/dashboard/charity/campaigns", iconName: "Megaphone" },
+    { name: "Withdrawals", href: "/dashboard/charity/withdraw", iconName: "ArrowDownToLine" },
+    { name: "Trust Score", href: "/dashboard/charity/trust-score", iconName: "Award" },
+    { name: "Settings", href: "/dashboard/charity/settings", iconName: "Settings" },
   ];
 
   return (

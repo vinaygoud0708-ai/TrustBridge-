@@ -4,17 +4,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import Navbar from "@/components/shared/navbar";
 import Footer from "@/components/shared/footer";
-import { 
-  LayoutDashboard,
-  ShieldCheck,
-  Megaphone,
-  ArrowDownToLine,
-  AlertTriangle,
-  Users,
-  DollarSign,
-  Settings,
-  ShieldAlert
-} from "lucide-react";
+import { ShieldAlert } from "lucide-react";
 import SidebarNav from "./sidebar-nav";
 
 export default async function AdminLayout({
@@ -45,14 +35,14 @@ export default async function AdminLayout({
   }
 
   const navItems = [
-    { name: "Overview", href: "/dashboard/admin", icon: LayoutDashboard },
-    { name: "NGO Verifications", href: "/dashboard/admin/verifications", icon: ShieldCheck },
-    { name: "Campaigns", href: "/dashboard/admin/campaigns", icon: Megaphone },
-    { name: "Withdrawals", href: "/dashboard/admin/withdrawals", icon: ArrowDownToLine },
-    { name: "Complaints", href: "/dashboard/admin/complaints", icon: AlertTriangle },
-    { name: "Users", href: "/dashboard/admin/users", icon: Users },
-    { name: "Transactions Ledger", href: "/dashboard/admin/transactions", icon: DollarSign },
-    { name: "Platform Settings", href: "/dashboard/admin/settings", icon: Settings },
+    { name: "Overview", href: "/dashboard/admin", iconName: "LayoutDashboard" },
+    { name: "NGO Verifications", href: "/dashboard/admin/verifications", iconName: "ShieldCheck" },
+    { name: "Campaigns", href: "/dashboard/admin/campaigns", iconName: "Megaphone" },
+    { name: "Withdrawals", href: "/dashboard/admin/withdrawals", iconName: "ArrowDownToLine" },
+    { name: "Complaints", href: "/dashboard/admin/complaints", iconName: "AlertTriangle" },
+    { name: "Users", href: "/dashboard/admin/users", iconName: "Users" },
+    { name: "Transactions Ledger", href: "/dashboard/admin/transactions", iconName: "DollarSign" },
+    { name: "Platform Settings", href: "/dashboard/admin/settings", iconName: "Settings" },
   ];
 
   return (
