@@ -1,0 +1,243 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id            String         @id @default(uuid())
+  name          String
+  email         String         @unique
+  phone         String?
+  password      String
+  role          String         @default("DONOR") // ADMIN, CHARITY, DONOR, GUEST
+  avatar        String?
+  isVerified    Boolean        @default(false)
+  otp           String?
+  otpExpiry     DateTime?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  organization  Organization?
+  donations     Donation[]
+  reviews       Review[]
+  notifications Notification[]
+}
+
+model Organization {
+  id                 String              @id @default(uuid())
+  userId             String              @unique
+  user               User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name               String
+  description        String
+  registrationNumber String
+  taxId              String
+  bankAccountName    String
+  bankAccountNumber  String
+  bankIFSC           String
+  address            String
+  city               String
+  country            String
+  website            String?
+  logo               String?
+  status             String              @default("PENDING") // PENDING, APPROVED, REJECTED, SUSPENDED
+  verificationTier   String              @default("BRONZE") // BRONZE, SILVER, GOLD
+  trustScore         Float               @default(3.0)
+  totalRaised        Float               @default(0.0)
+  totalCampaigns     Int                 @default(0)
+  completedCampaigns Int                 @default(0)
+  complaintsCount    Int                 @default(0)
+  documents          Document[]
+  campaigns          Campaign[]
+  withdrawals        WithdrawalRequest[]
+  trustScoreBreakdown TrustScore?
+  reviews            Review[]
+  complaints         Complaint[]
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+}
+
+model Document {
+  id             String       @id @default(uuid())
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  type           String       // REGISTRATION, TAX, BANK, IDENTITY, OTHER
+  fileUrl        String
+  fileName       String
+  status         String       @default("PENDING") // PENDING, APPROVED, REJECTED
+  uploadedAt     DateTime     @default(now())
+}
+
+model Campaign {
+  id               String              @id @default(uuid())
+  organizationId   String
+  organization     Organization        @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  title            String
+  description      String
+  story            String
+  goalAmount       Float
+  raisedAmount     Float               @default(0.0)
+  category         String              // EDUCATION, HEALTH, DISASTER, ENVIRONMENT, COMMUNITY, RELIGIOUS, OTHER
+  status           String              @default("DRAFT") // DRAFT, PENDING, ACTIVE, COMPLETED, REJECTED, CLOSED
+  coverImage       String
+  gallery          String              @default("[]") // JSON array string of image URLs
+  startDate        DateTime
+  endDate          DateTime
+  location         String
+  latitude         Float?
+  longitude        Float?
+  beneficiaryCount Int                 @default(0)
+  totalDonors      Int                 @default(0)
+  isUrgent         Boolean             @default(false)
+  isFeatured       Boolean             @default(false)
+  usagePlan        String              @default("[]") // JSON array string of budget items
+  adminNote        String?
+  donations        Donation[]
+  fundUsages       FundUsage[]
+  withdrawals      WithdrawalRequest[]
+  complaints       Complaint[]
+  updates          CampaignUpdate[]
+  createdAt        DateTime            @default(now())
+  updatedAt        DateTime            @updatedAt
+}
+
+model CampaignUpdate {
+  id          String   @id @default(uuid())
+  campaignId  String
+  campaign    Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  title       String
+  content     String
+  imageUrl    String?
+  createdAt   DateTime @default(now())
+}
+
+model Donation {
+  id                   String        @id @default(uuid())
+  campaignId           String
+  campaign             Campaign      @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  donorId              String?
+  donor                User?         @relation(fields: [donorId], references: [id], onDelete: SetNull)
+  amount               Float
+  currency             String        @default("USD")
+  stripePaymentId      String        @unique
+  status               String        @default("PENDING") // PENDING, SUCCESS, FAILED, REFUNDED
+  isAnonymous          Boolean       @default(false)
+  donorName            String?       // For guest
+  donorEmail           String?       // For guest
+  receiptUrl           String?
+  taxReceiptGenerated  Boolean       @default(false)
+  message              String?
+  transactions         Transaction[]
+  createdAt            DateTime      @default(now())
+}
+
+model FundUsage {
+  id                  String            @id @default(uuid())
+  campaignId          String
+  campaign            Campaign          @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  withdrawalRequestId String
+  withdrawalRequest   WithdrawalRequest @relation(fields: [withdrawalRequestId], references: [id], onDelete: Cascade)
+  item                String
+  description         String
+  amount              Float
+  proofType           String            // BILL, INVOICE, PHOTO, BANK_STATEMENT, REPORT
+  proofFileUrl        String
+  status              String            @default("PENDING") // PENDING, VERIFIED
+  uploadedAt          DateTime          @default(now())
+}
+
+model WithdrawalRequest {
+  id             String       @id @default(uuid())
+  campaignId     String
+  campaign       Campaign     @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  requestedAmount Float
+  purpose        String
+  status         String       @default("PENDING") // PENDING, APPROVED, REJECTED, DISBURSED
+  adminNote      String?
+  proofUploaded  Boolean      @default(false)
+  fundUsages     FundUsage[]
+  requestedAt    DateTime     @default(now())
+  processedAt    DateTime?
+  disbursedAt    DateTime?
+}
+
+model TrustScore {
+  id                String       @id @default(uuid())
+  organizationId    String       @unique
+  organization      Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  verificationScore Float        @default(10.0)
+  reportingScore    Float        @default(25.0)
+  donorRatingScore  Float        @default(20.0)
+  completionScore   Float        @default(15.0)
+  complaintScore    Float        @default(10.0)
+  totalScore        Float        @default(80.0) // /100 -> matches 4.0/5
+  lastCalculated    DateTime     @default(now())
+}
+
+model Review {
+  id             String       @id @default(uuid())
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  donorId        String
+  donor          User         @relation(fields: [donorId], references: [id], onDelete: Cascade)
+  rating         Int          // 1 to 5
+  comment        String
+  isVerifiedDonor Boolean      @default(false)
+  createdAt      DateTime     @default(now())
+}
+
+model Complaint {
+  id             String       @id @default(uuid())
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  campaignId     String?
+  campaign       Campaign?    @relation(fields: [campaignId], references: [id], onDelete: SetNull)
+  filedBy        String       // Filer's email or name
+  type           String       // FRAUD, MISUSE, FAKE, OTHER
+  description    String
+  evidence       String       @default("[]") // JSON array string of proof URLs
+  status         String       @default("OPEN") // OPEN, INVESTIGATING, RESOLVED, DISMISSED
+  adminNote      String?
+  createdAt      DateTime     @default(now())
+  resolvedAt     DateTime?
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title     String
+  message   String
+  type      String   // DONATION, WITHDRAWAL, PROOF, COMPLAINT, SCORE, UPDATE
+  isRead    Boolean  @default(false)
+  link      String?
+  createdAt DateTime @default(now())
+}
+
+model AuditLog {
+  id          String   @id @default(uuid())
+  performedBy String   // User email or ID
+  action      String
+  targetType  String
+  targetId    String
+  details     String   @default("{}") // JSON string of operation details
+  ipAddress   String?
+  createdAt   DateTime @default(now())
+}
+
+model Transaction {
+  id         String    @id @default(uuid())
+  donationId String?
+  donation   Donation? @relation(fields: [donationId], references: [id], onDelete: SetNull)
+  type       String    // DONATION, WITHDRAWAL, REFUND, COMMISSION
+  amount     Float
+  currency   String    @default("USD")
+  status     String    @default("SUCCESS") // SUCCESS, PENDING, FAILED
+  reference  String    @unique
+  metadata   String    @default("{}") // JSON string of transaction metadata
+  createdAt  DateTime  @default(now())
+}

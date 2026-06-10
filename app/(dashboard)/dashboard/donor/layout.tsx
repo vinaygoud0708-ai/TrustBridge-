@@ -1,0 +1,82 @@
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
+import { redirect } from "next/navigation";
+import Link from "next/link";
+import Navbar from "@/components/shared/navbar";
+import Footer from "@/components/shared/footer";
+import { 
+  Heart, 
+  History, 
+  TrendingUp, 
+  Bookmark, 
+  Settings, 
+  LayoutDashboard,
+  ShieldAlert
+} from "lucide-react";
+import SidebarNav from "./sidebar-nav";
+
+export default async function DonorLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const session = await getServerSession(authOptions);
+
+  if (!session) {
+    redirect("/login");
+  }
+
+  // Allow ADMIN to view donor dashboards for audit/support validation
+  if (session.user.role !== "DONOR" && session.user.role !== "ADMIN") {
+    return (
+      <div className="min-h-screen bg-background flex flex-col">
+        <Navbar />
+        <div className="flex-1 flex flex-col justify-center items-center py-20 px-4 text-center">
+          <ShieldAlert className="h-12 w-12 text-rose-500 mb-4" />
+          <h2 className="text-xl font-bold text-white">Role Access Restricted</h2>
+          <p className="text-xs text-slate-450 mt-1 max-w-sm">This dashboard is only accessible to users registered with the donor role.</p>
+          <Link href="/" className="mt-4 text-xs font-bold text-primary hover:underline">Back to Homepage</Link>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  const navItems = [
+    { name: "Overview", href: "/dashboard/donor", icon: LayoutDashboard },
+    { name: "Donations", href: "/dashboard/donor/donations", icon: History },
+    { name: "Impact Report", href: "/dashboard/donor/impact", icon: TrendingUp },
+    { name: "Saved", href: "/dashboard/donor/saved", icon: Bookmark },
+    { name: "Settings", href: "/dashboard/donor/settings", icon: Settings },
+  ];
+
+  return (
+    <div className="min-h-screen bg-background flex flex-col">
+      <Navbar />
+      
+      <div className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10 flex flex-col md:flex-row gap-8">
+        
+        {/* Navigation Sidebar Component */}
+        <aside className="w-full md:w-64 flex-shrink-0">
+          <div className="sticky top-24 rounded-2xl glass-card p-5 space-y-4">
+            <div className="px-3 py-2 border-b border-slate-800 pb-3">
+              <span className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Donor Controls</span>
+              <h3 className="font-extrabold text-sm text-white mt-1">Hello, {session.user.name?.split(" ")[0]}</h3>
+            </div>
+            
+            {/* Sidebar list helper */}
+            <SidebarNav items={navItems} />
+          </div>
+        </aside>
+
+        {/* Dynamic content page */}
+        <main className="flex-grow min-w-0">
+          {children}
+        </main>
+
+      </div>
+
+      <Footer />
+    </div>
+  );
+}
